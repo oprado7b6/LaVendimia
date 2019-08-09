@@ -1,0 +1,6 @@
+{"_id":{"$numberInt":"1"},"nombre":"Oscar","primer_apellido":"Prado","segundo_apellido":"Lopez","rfc":"PALO741209","direccion":"C. de la Piedra 4 int 2","telefono":"6646286193"}
+{"_id":{"$numberInt":"2"},"nombre":"Vicente","primer_apellido":"Delgadillo","segundo_apellido":"Alcocer","rfc":"DEAV741208","direccion":"C. San Clemente 4 int 3","telefono":"6646286193"}
+{"_id":{"$numberInt":"3"},"nombre":"Brendy","primer_apellido":"Delgadillo","segundo_apellido":"Lopez","rfc":"DELB760729","direccion":"C. de la Piedra 4 int 2","telefono":"6646286193"}
+{"_id":{"$numberInt":"4"},"nombre":"Edgar","primer_apellido":"Robles","segundo_apellido":"Prado","rfc":"ROPE790715","direccion":"C. de la Piedra 4 int 5","telefono":"6646286193"}
+{"_id":{"$numberInt":"5"},"nombre":"Joel","primer_apellido":"Lopez","segundo_apellido":"Bernal","rfc":"LOBJ831207","direccion":"C. de la Piedra 4 int 6","telefono":"6646286193"}
+{"_id":{"$numberInt":"6"},"nombre":"Gael","primer_apellido":"Prado","segundo_apellido":"Velazquez","rfc":"PAVG171030","direccion":"C. de la Piedra 4 int 3","telefono":"6646286193"}
