@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5d4c7d667043921f34f7f30d"},"folio":{"$numberInt":"1"},"articulo":{"$numberInt":"1"},"cantidad":{"$numberInt":"1"},"precio":{"$numberDouble":"5764.88"},"importe":{"$numberDouble":"5764.88"},"promocion":{"$numberInt":"0"},"estatus":{"$numberInt":"0"}}

@@ -1,0 +1,1 @@
+{"folio":{"$numberInt":"2"},"cliente":{"$numberInt":"1"},"bonificacion":{"$numberInt":"0"},"enganche":{"$numberInt":"0"},"total":{"$numberDouble":"5764.88"},"tasa_financiamiento":{"$numberDouble":"2.8"},"plazo_maximo":{"$numberInt":"12"},"fecha":{"$date":{"$numberLong":"1565334000000"}},"estatus":{"$numberInt":"0"},"vendedor":"oprado"}
