@@ -1,6 +1,0 @@
-{"_id":{"$numberInt":"1"},"descripcion":"Comedor 4 Sillas","modelo":"Carlos V","cantidad":{"$numberInt":"10"},"precio":{"$numberDouble":"5764.88"},"color":"Caoba"}
-{"_id":{"$numberInt":"2"},"descripcion":"Comedor 6 Sillas","modelo":"Carlos V","cantidad":{"$numberInt":"3"},"precio":{"$numberDouble":"6609.77"},"color":"Caoba"}
-{"_id":{"$numberInt":"3"},"descripcion":"Comedor 12 Sillas","modelo":"Carlos V","cantidad":{"$numberInt":"7"},"precio":{"$numberDouble":"8980.92"},"color":"Caoba"}
-{"_id":{"$numberInt":"4"},"descripcion":"Comedor 4 Sillas","modelo":"Carlos V","cantidad":{"$numberInt":"1"},"precio":{"$numberDouble":"5864.88"},"color":"Negro"}
-{"_id":{"$numberInt":"5"},"descripcion":"Comedor 6 Sillas","modelo":"Carlos V","cantidad":{"$numberInt":"5"},"precio":{"$numberDouble":"6709.79"},"color":"Negro"}
-{"_id":{"$numberInt":"6"},"descripcion":"Comedor 12 Sillas","modelo":"Carlos V","cantidad":{"$numberInt":"8"},"precio":{"$numberDouble":"8999.92"},"color":"Negro"}
