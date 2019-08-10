@@ -1,1 +1,0 @@
-{"_id":{"$oid":"5d4ca27fb66f291688b43c91"},"usuario":"oprado","clave_acceso":"","nombre":"Oscar","primer_apellido":"Prado","segundo_apellido":"Lopez","tipo_usuario":{"$numberInt":"0"},"activo":true}
