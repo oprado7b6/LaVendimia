@@ -23,11 +23,15 @@ var schemas = {
 		direccion: null,
 		telefono: null
 	}
+	configuracion: {
+		id: null,
+		plazo: null,
+		periodo: null
+	}
 	plazo: {
 		id: null,
 		plazo: null,
 		periodo: null,
-		tasa: null
 	}
 	usuario: {
 		id: null,
@@ -46,8 +50,8 @@ var schemas = {
 		bonificacion: null,
 		enganche: null,
 		total: null,
-		tasa_financiamiento: null,
-		plazo_maximo: null,
+		tasa: null,
+		plazo: null,
 		fecha: null,
 		estatus: null,
 		vendedor: null

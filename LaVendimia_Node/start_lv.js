@@ -11,7 +11,7 @@ mongoose.connection
 		console.log('Connection error: ${err.message}');
 	});
 	
-require('./models/LaVendimia');
+require('./models/Venta');
 const app = require('./app');
 const server = app.listen(4040, () => {
 	console.log('Express is running on port ${server.address().port}');
