@@ -47,30 +47,15 @@ Plazo.prototype.sanitize = function (data) {
     return _.pick(_.defaults(data, schema), _.keys(schema)); 
 }
 
-Plazo.prototype.save = function (callback) {
-    var self = this;
-    this.data = this.sanitize(this.data);
-    db.get('plazo', {id: this.data.id}).update(JSON.stringify(this.data)).run(function (err, result) {
-        if (err) return callback(err);
-        callback(null, result); 
-    });
-}
-
 Plazo.findById = function (id, callback) {
     db.get('plazo', {id: id}).run(function (err, data) {
         if (err) return callback(err);
         callback(null, new Plazo(data));
     });
 }
-Plazo.findByMax = function (plazo, callback) {
-    db.get('plazo', {plazo: plazo}).run(function (err, data) {
-        if (err) return callback(err);
-        callback(null, new Plazo(data));
-    });
-}
 
-Plazo.find = function (callback) {
-    db.get().run(function (err, data) {
+Plazo.find = function (plazo, callback) {
+    db.get('plazo', {plazo: { $lte: plazo }}).run(function (err, data) {
         if (err) return callback(err);
         callback(null, new Plazo(data));
     });
