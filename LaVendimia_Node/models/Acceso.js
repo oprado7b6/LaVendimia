@@ -6,7 +6,7 @@ const accesoSchema = new mongoose.Schema({
 		trim: true,
 	},
 	modulo: Number,
-	activo: boolean,
+	activo: Boolean,
 	fecha_alta: { 
 		type: Date, 
 		default: Date.now 

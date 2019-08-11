@@ -23,7 +23,7 @@ const usuarioSchema = new mongoose.Schema({
 	},
     tipo_usuario: Number,
 	activo: {
-		type: boolean,
+		type: Boolean,
 		default: true
 	},
 	fecha_registro: {

@@ -29,5 +29,8 @@ const ventaSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('venta', ventaSchema);
+var Venta = module.exports = mongoose.model('venta', ventaSchema);
 
+module.exports.get = function (callback, limit){
+	Venta.find(callback).limit(limit);
+}

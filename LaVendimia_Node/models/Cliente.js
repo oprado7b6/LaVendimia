@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const clienteSchema = new mongoose.Schema({
-	id: ObjectId,
+	id: Object,
 	nombre: {
 		type: String,
 		trim: true,
