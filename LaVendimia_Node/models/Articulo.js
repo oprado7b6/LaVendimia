@@ -11,7 +11,7 @@ const articuloSchema = new mongoose.Schema({
 		trim: true,
 	},
 	cantidad: Number,
-	precio: double,
+	precio: Number,
 	color: {
 		type: String,
 		trim: true,

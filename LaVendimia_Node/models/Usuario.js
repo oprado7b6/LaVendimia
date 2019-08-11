@@ -1,22 +1,36 @@
 const mongoose = require('mongoose');
 
-const articuloSchema = new mongoose.Schema({
-	id: Number,
-	descripcion: {
+const usuarioSchema = new mongoose.Schema({
+	id: {
 		type: String,
 		trim: true,
 	},
-	modelo: {
+	clave_acceso: {
 		type: String,
 		trim: true,
 	},
-	cantidad: Number,
-	precio: double,
-	color: {
+	nombre: {
 		type: String,
 		trim: true,
 	},
+	primer_apellido: {
+		type: String,
+		trim: true,
+	},
+	segundo_apellido: {
+		type: String,
+		trim: true,
+	},
+    tipo_usuario: Number,
+	activo: {
+		type: boolean,
+		default: true
+	},
+	fecha_registro: {
+		type: Date,
+		default: Date.now
+	}
 });
 
-module.exports = mongoose.model('articulo', articuloSchema);
+module.exports = mongoose.model('usuario', usuarioSchema);
 

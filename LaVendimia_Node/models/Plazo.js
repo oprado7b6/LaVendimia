@@ -8,7 +8,7 @@ const plazoSchema = new mongoose.Schema({
 		trim: true
 	},
 	tasa: {
-		type: double,
+		type: Number,
 		default: 0.0
 	}
 });
