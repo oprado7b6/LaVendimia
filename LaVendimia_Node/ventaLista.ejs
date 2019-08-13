@@ -1,0 +1,62 @@
+<!-- views/ventaLista.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ./partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ./partials/header %>
+</header>
+
+<main>
+    <div id="durl" class="jumbotron" style="margin-top: 250px;">		
+		<div class="container">
+			<div id="ventas" class="ventas">
+				<div class="nuevaventa">
+					<button data-toggle="modal" data-target="#registroVentaModal" id="btnRegistroVenta" class="btn btn-primary">
+						<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> Nueva Venta
+					</button>
+				</div>
+				<div class="ventasactivas">
+					<h5>Ventas Activas</h5>
+					<table id="tblVentasActivas" class="table display">
+					<thead class="thead-light">
+					<tr>
+						<th>Folio Venta</th>
+						<th>Clave Cliente</th>
+						<th>Nombre</th>
+						<th>Total</th>
+						<th>Fecha</th>
+						<th>Estatus</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+					</tr>
+					</tbody>
+					<tfoot class="thead-light">
+					<tr>
+						<th>Folio Venta</th>
+						<th>Clave Cliente</th>
+						<th>Nombre</th>
+						<th>Total</th>
+						<th>Fecha</th>
+						<th>Estatus</th>
+					</tr>
+					</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+    </div>
+</main>
+
+<footer>
+	<% include ./partials/footer %>
+</footer>
+
+</body>
+</html>
