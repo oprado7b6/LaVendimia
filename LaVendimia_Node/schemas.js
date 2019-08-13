@@ -1,40 +1,40 @@
 var schemas = {
 	acceso: {
-		id: null,
+		_id: null,
 		modulo: null,
 		activo: null,
 		fecha_alta: null,
 		fecha_baja: null
-	}
+	},
 	articulo: {
-		id: null,
+		_id: null,
 		descripcion: null,
 		modelo: null,
 		cantidad: null,
 		precio: null,
 		color: null
-	}
+	},
 	cliente: {
-		id: null,
+		_id: null,
 		nombre: null,
 		primer_apellido: null,
 		segundo_apellido: null,
 		rfc: null,
 		direccion: null,
 		telefono: null
-	}
+	},
 	configuracion: {
-		id: null,
+		_id: null,
 		plazo: null,
 		periodo: null
-	}
+	},
 	plazo: {
-		id: null,
+		_id: null,
 		plazo: null,
 		periodo: null,
-	}
+	},
 	usuario: {
-		id: null,
+		_id: null,
 		clave_acceso: null,
 		nombre: null,
 		primer_apellido: null,
@@ -42,9 +42,9 @@ var schemas = {
 		tipo_usuario: null,
 		activo: null,
 		fecha_registro: null
-	}
+	},
 	venta: {
-		id: null,
+		_id: null,
 		folio: null,
 		cliente: null,
 		bonificacion: null,
@@ -55,9 +55,9 @@ var schemas = {
 		fecha: null,
 		estatus: null,
 		vendedor: null
-	}
+	},
 	venta_articulos: {
-		id: null,
+		_id: null,
 		folio: null,
 		articulo: null,
 		cantidad: null,

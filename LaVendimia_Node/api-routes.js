@@ -8,9 +8,9 @@ router.get('/', function (req, res) {
 		message: 'Welcome to RESTHub crafted with love!'
 	});
 });
-
+/*
 // Import contact controller
-var ventaControlador = require('./controllers/venta');
+var ventaControlador = require('./controllers/ventaController');
 // Contact routes
 router.route('/ventas')
 	.get(ventaControlador.index)
@@ -20,6 +20,6 @@ router.route('/ventas/:folio')
 	.patch(ventaControlador.update)
 	.put(ventaControlador.update)
 	.delete(ventaControlador.delete);
-
+*/
 // Export API routes
 module.exports = router;
