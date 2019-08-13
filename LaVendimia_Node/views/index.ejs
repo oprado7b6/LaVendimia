@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>La Vendimia</title>
- 
-</head>
+<!-- views/pages/index.ejs -->
 
-<body>
-<h1> Hello, La Vendimia!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ./partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ./partials/header %>
+</header>
+
+<main>
+    <div id="durl" class="jumbotron" style="margin-top: 250px;">
+        <h1>La vendimia</h1>
+        <p>La mejor opci&oacute;n del mercado</p>
+        <!--% include ./ventas %-->
+    </div>
+</main>
+
+<footer>
+    <% include ./partials/footer %>
+</footer>
+
 </body>
 </html>

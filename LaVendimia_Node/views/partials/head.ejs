@@ -1,0 +1,38 @@
+<!-- views/partials/head.ejs -->
+	<title>La Vendimia</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/css/laVendimia.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script src="jquery/dist/jquery.min.js"></script>
+	<script src="bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript">
+
+$(document).ready( function() {
+	$(".dropdown-trigger").dropdown();
+/// event on node 
+	$("#ddventas").on("click", function() {
+		$("#durl").load("ventas.html");
+	});
+	$("#btnRegistroVenta").click(function (event) {
+		$("#registroVentaModal").modal("show");
+	});
+});
+
+function noDisponible(modulo) {
+	document.getElementById("durl").innerHTML = '<div id="nodisponible" class="nodisponible"><h1>M&oacute;dulo de ' + modulo + ' est&aacute; en proceso de liberaci&oacute;n.</h1><div>';
+}
+
+document.getElementById("ddclientes").onclick = function() { 
+	noDisponible("Clientes");
+}
+
+document.getElementById("ddarticulo").onclick = function() { 
+	noDisponible("Art&iacute;culo");
+}
+
+document.getElementById("ddconfiguracion").onclick = function() { 
+	noDisponible("Configuraci&oacute;n");
+} 
+ 
+</script> 

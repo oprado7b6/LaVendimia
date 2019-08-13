@@ -1,0 +1,53 @@
+		
+			<div class="container">
+				<div id="ventas" class="ventas">
+					<div class="nuevaventa">
+						<button data-toggle="modal" data-target="#registroVentaModal" id="btnRegistroVenta" class="btn btn-primary">
+							<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> Nueva Venta
+						</button>
+					</div>
+					<div class="ventasactivas">
+						<h5>Ventas Activas</h5>
+						<table id="tblVentasActivas" class="table display">
+						<thead class="thead-light">
+						<tr>
+							<th>Folio Venta</th>
+							<th>Clave Cliente</th>
+							<th>Nombre</th>
+							<th>Total</th>
+							<th>Fecha</th>
+							<th>Estatus</th>
+						</tr>
+						</thead>
+						<tbody>
+						<%	if (ventas_list === null || ventas_list.length === 0 ){ %>
+						<tr>
+							<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+						</tr>
+						<%	} else {
+								for (let i = 0; i < ventas_list.length; i ++){
+						%>
+						<tr>
+							<td><%= venta_list[i].folio %></th>
+							<td><%= venta_list[i].cliente %> </td>
+							<td><%= venta_list[i].vendedor %></td>
+							<td><%= venta_list[i].total %></td>
+							<td><%= venta_list[i].enganche %></td>
+							<td><%= venta_list[i].estatus %></td>
+						</tr>
+						<% } %>
+						</tbody>
+						<tfoot class="thead-light">
+						<tr>
+							<th>Folio Venta</th>
+							<th>Clave Cliente</th>
+							<th>Nombre</th>
+							<th>Total</th>
+							<th>Fecha</th>
+							<th>Estatus</th>
+						</tr>
+						</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
