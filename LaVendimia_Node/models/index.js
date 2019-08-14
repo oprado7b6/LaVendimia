@@ -1,8 +1,3 @@
-require('./Acceso')
-require('./Articulo');
-require('./Cliente');
-require('./Configuracion');
-require('./Plazo');
-require('./Usuario');
-require('./Venta');
-require('./VentaArticulos');
+module.exports = function(includeFile){
+	return require('./'+includeFile);
+};
