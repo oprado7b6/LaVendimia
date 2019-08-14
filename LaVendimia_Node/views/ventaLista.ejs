@@ -11,7 +11,7 @@
 </header>
 
 <main>
-    <div id="durl" class="jumbotron" style="margin-top: 250px;">		
+    <div id="durl" class="jumbotron" style="margin-top: 150px;">		
 		<div class="container">
 			<div id="ventas" class="ventas">
 				<div class="nuevaventa">
@@ -20,8 +20,8 @@
 					</button>
 				</div>
 				<div class="ventasactivas">
-					<h5>Ventas Activas</h5>
-					<table id="tblVentasActivas" class="table display">
+					<h5><%=titulo%></h5>
+					<table id="tblVentasActivas" class="table display" >
 					<thead class="thead-light">
 					<tr>
 						<th>Folio Venta</th>
@@ -38,17 +38,18 @@
 						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
 					</tr>
 					<%	} else {
-							for (let i = 0; i < ventas_list.length; i ++){
+							for (var i = 0; i < ventas_list.length; i ++){
 					%>
 					<tr>
-						<td><%= venta_list[i].folio %></th>
-						<td><%= venta_list[i].cliente %> </td>
-						<td><%= venta_list[i].vendedor %></td>
-						<td><%= venta_list[i].total %></td>
-						<td><%= venta_list[i].enganche %></td>
-						<td><%= venta_list[i].estatus %></td>
+						<td><%= ventas_list[i].folio %></th>
+						<td><%= ventas_list[i].cliente %> </td>
+						<td><%= ventas_list[i].vendedor %></td>
+						<td><%= ventas_list[i].total %></td>
+						<td><%= ventas_list[i].fecha_venta %></td>
+						<td><%= ventas_list[i].estatus %></td>
 					</tr>
-					<% } %>
+					<%		}
+						} %>
 					</tbody>
 					<tfoot class="thead-light">
 					<tr>
@@ -68,7 +69,6 @@
 </main>
 
 <footer>
-	<% include ./includes/scripts %>
 	<% include ./partials/footer %>
 </footer>
 

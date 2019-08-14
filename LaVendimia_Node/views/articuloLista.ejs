@@ -1,0 +1,66 @@
+<!-- views/ventaLista.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ./partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ./partials/header %>
+</header>
+
+<main>
+    <div id="durl" class="jumbotron" style="margin-top: 150px;">		
+		<div class="container">
+			<div id="articulos" class="articulos">
+				<div class="nuevoarticulo">
+					<button data-toggle="modal" data-target="#registroArticuloModal" id="btnRegistroArticulo" class="btn btn-primary">
+						<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> <%= nuevo %>
+					</button>
+				</div>
+				<div class="articulosactivas">
+					<h5><%=titulo%></h5>
+					<table id="tblArticulosRegistrados" class="table display" >
+					<thead class="thead-light">
+					<tr>
+						<th>Clave Art&iacute;culo</th>
+						<th>Descripci&oacute;n</th>
+						<th>Existencia</th>
+						<th>Modelo</th>
+						<th>Color</th>
+						<th>Precio</th>
+					</tr>
+					</thead>
+					<tbody>
+					<%	if (articulos_list === null || articulos_list.length === 0 ){ %>
+					<tr>
+						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+					</tr>
+					<%	} else {
+							for (var i = 0; i < articulos_list.length; i ++){
+					%>
+					<tr>
+						<td><%= articulos_list[i]._id %></th>
+						<td><%= articulos_list[i].descripcion %> </td>
+						<td><%= articulos_list[i].cantidad %></td>
+						<td><%= articulos_list[i].modelo %></td>
+						<td><%= articulos_list[i].color %></td>
+						<td><%= articulos_list[i].precio %></td>
+					</tr>
+					<%		}
+						} %>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    </div>
+</main>
+
+<footer>
+	<% include ./partials/footer %>
+</footer>
+
+</body>
+</html>

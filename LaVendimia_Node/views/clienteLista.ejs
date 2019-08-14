@@ -1,0 +1,70 @@
+<!-- views/ventaLista.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ./partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ./partials/header %>
+</header>
+
+<main>
+    <div id="durl" class="jumbotron" style="margin-top: 150px;">		
+		<div class="container">
+			<div id="clientes" class="clientes">
+				<div class="nuevocliente">
+					<button data-toggle="modal" data-target="#registroClienteModal" id="btnRegistroCliente" class="btn btn-primary">
+						<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> <%= nuevo %>
+					</button>
+				</div>
+				<div class="clientesRegistrados">
+					<h5><%=titulo%></h5>
+					<table id="tblClientesRegistrados" class="table display" >
+					<thead class="thead-light">
+					<tr>
+						<th>Clave Cliente</th>
+						<th>Nombre</th>
+						<th>RFC</th>
+						<th>Tel&eacute;fono</th>
+						<th>Correo Electr&oacute;nico</th>
+						<th>Direccci&oacute;n</th>
+					</tr>
+					</thead>
+					<tbody>
+					<%	if (clientes_list === null || clientes_list.length === 0 ){ %>
+					<tr>
+						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+					</tr>
+					<%	} else {
+							for (var i = 0; i < clientes_list.length; i ++){
+					%>
+					<tr>
+						<td><%= clientes_list[i]._id %></th>
+						<td>
+							<%= clientes_list[i].nombre %> 
+							<%= clientes_list[i].primer_apellido %> 
+							<%= clientes_list[i].segundo_apellido %>
+						</td>
+						<td><%= clientes_list[i].rfc %></td>
+						<td><%= clientes_list[i].telefono %></td>
+						<td></td>
+						<td><%= clientes_list[i].direccion %></td>
+					</tr>
+					<%		}
+						} %>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    </div>
+</main>
+
+<footer>
+	<% include ./partials/footer %>
+</footer>
+
+</body>
+</html>
