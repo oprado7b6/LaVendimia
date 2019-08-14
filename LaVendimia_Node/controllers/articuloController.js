@@ -1,6 +1,11 @@
 // articuloController.js
+var MongoClient = require('mongodb').MongoClient;
+const dburl = process.env.DBURL;
+const dbName = process.env.DBNAME;
+const dbPort = process.env.DBPORT;
 var mongoose = require('mongoose');
 const moment = require('moment');
+const { Connection } = require('../lib/Connection.js')
 const currentDate = moment(Date.now()).format('MMMM Do YYYY HH:mm:ss');
 
 // Import articulo model
@@ -8,14 +13,25 @@ const Articulo = require('../models/articulo');
 
 // Display list of all Articulos.
 exports.articulo_list = function(req, res) {
-	res.render('notImplemented', {
-		today : currentDate,
-		modulo : 'Lista de Art&iacute;culos'
+	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dbName);
+		dbo.collection("articulo").find({}).toArray(function(err, result) {
+			if (err) throw err;
+			res.render('articuloLista', { 
+				today : currentDate, 
+				titulo : 'Articulos Registrado', 
+				nuevo : 'Nuevo Articulo',
+				articulos_list : result 
+			});
+			db.close();
+		});
 	});
 };
 
 // Display detail page for a specific Articulo.
 exports.articulo_detail = function(req, res) {
+	//mongoose.connect
 	res.render('notImplemented', {
 		today : currentDate,
 		modulo : 'Detalle de Art&iacute;culos'

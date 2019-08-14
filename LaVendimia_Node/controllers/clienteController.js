@@ -1,18 +1,31 @@
 // articuloController.js
+var MongoClient = require('mongodb').MongoClient;
+const dburl = process.env.DBURL;
+const dbName = process.env.DBNAME;
+const dbPort = process.env.DBPORT;
 var mongoose = require('mongoose');
 const moment = require('moment');
 const currentDate = moment(Date.now()).format('MMMM Do YYYY HH:mm:ss');
 
-// Import cleinte model
+// Import cliente model
 const Cliente = require('../models/cliente');
 
 // Display list of all clientes.
 exports.cliente_list = function(req, res) {
-	res.render('notImplemented', {
-		today : currentDate,
-		modulo : 'Lista de Clientes'
+	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dbName);
+		dbo.collection("cliente").find({}).toArray(function(err, result) {
+			if (err) throw err;
+			res.render('clienteLista', { 
+				today : currentDate, 
+				titulo : 'Clinetes Registrado', 
+				nuevo : 'Nuevo Cliente',
+				clientes_list : result 
+			});
+			db.close();
+		});
 	});
-	//res.send('NOT IMPLEMENTED: Cliente list');
 };
 
 // Display detail page for a specific cliente.

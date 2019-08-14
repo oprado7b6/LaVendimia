@@ -1,10 +1,16 @@
 // ventaController.js
-var mongoose = require('mongoose');
+var MongoClient = require('mongodb').MongoClient;
+const dburl = process.env.DBURL;
+const dbName = process.env.DBNAME;
+const dbPort = process.env.DBPORT;
+const mongoose = require('mongoose');
 const moment = require('moment');
+const { Connection } = require('../lib/Connection.js')
+
 const currentDate = moment(Date.now()).format('MMMM Do YYYY HH:mm:ss');
 
-var events = require('events');
-var eventsEmitter = new events.EventEmitter();
+//var events = require('events');
+//var eventsEmitter = new events.EventEmitter();
 
 // Import venta model
 var Venta = require('../models/venta');
@@ -12,64 +18,29 @@ var VentaArticulo = require('../models/ventaArticulo');
 var Articulo = require('../models/articulo');
 var Cliente = require('../models/cliente');
 
-var async = require('async');
+//var async = require('async');
 
 exports.index = function(req, res) {
-	/*var todoItems = [
-			{ 'folio': 1 , 'cliente': 1, 'bonificacion': 0, 'enganche': 300, 'total': 5764.88, 'tasa': 2.8, 'plazo': 12, 'estatus': 0, 'vendedor' : 'oprado'},
-			{ 'folio': 2 , 'cliente': 1, 'bonificacion': 0, 'enganche': 300, 'total': 5864.88, 'tasa': 2.8, 'plazo': 12, 'estatus': 0, 'vendedor' : 'oprado'},
-			{ 'folio': 3 , 'cliente': 1, 'bonificacion': 0, 'enganche': 300, 'total': 5964.88, 'tasa': 2.8, 'plazo': 12, 'estatus': 0, 'vendedor' : 'oprado'},
-			{ 'folio': 4 , 'cliente': 1, 'bonificacion': 0, 'enganche': 300, 'total': 5784.88, 'tasa': 2.8, 'plazo': 12, 'estatus': 0, 'vendedor' : 'oprado'}
-	];*/
-	//res.render('laVendimiaIndex', {
 	res.render('index', {
 		today : currentDate
 	});
-/*	Venta.find()
-		.sort([['fecha', 'ascending']])
-		.exec(function (err, list_ventas) {
-		if (err) { return next(err); }
-		//Successful, so render
-		res.render('index', { title: 'Ventas Lista', today : currentDate, venta_list: list_ventas });
-	});
-*/
 };
 
 // Display list of all ventas.
 exports.venta_list = function(req, res, next) {
-
-	Venta.find()
-		//.sort([['fecha', 'ascending']])
-		.exec(function (err, list_ventas) {
-		if (err) { return next(err); }
-		//Successful, so render
-		res.render('ventaLista', { 
-			today : currentDate, 
-			titulo : 'Ventas Activas', 
-			ventas_list : list_ventas 
+	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dbName);
+		dbo.collection("venta").find({}).toArray(function(err, result) {
+			if (err) throw err;
+			res.render('ventaLista', { 
+				today : currentDate, 
+				titulo : 'Ventas Activas', 
+				ventas_list : result 
+			});
+			db.close();
 		});
 	});
-	/*var todoItems = [
-			{ folio: 1 , cliente: 1, bonificacion: 0, enganche:300, total:5764.88, tasa:2.8, plazo:12, estatus:0, vendedor : 'oprado'},
-			{ folio: 2 , cliente: 1, bonificacion: 0, enganche:300, total:5764.88, tasa:2.8, plazo:12, estatus:0, vendedor : 'oprado'},
-			{ folio: 3 , cliente: 1, bonificacion: 0, enganche:300, total:5764.88, tasa:2.8, plazo:12, estatus:0, vendedor : 'oprado'},
-			{ folio: 4 , cliente: 1, bonificacion: 0, enganche:300, total:5764.88, tasa:2.8, plazo:12, estatus:0, vendedor : 'oprado'}
-	];*/
-	///let ventaDocs = todoItems;
-	//let ventaDocs = new Venta();
-	/*
-	Venta.find({}, function (err, lista_ventas) {
-		if (err)
-			{return next(err);}
-
-		res.render('venta', {
-			today : currentDate,
-			ventas : lista_ventas
-		});
-		
-	});
-*/
-	//res.send('NOT IMPLEMENTED: Venta list');
 };
 
 // Display detail page for a specific venta.
@@ -197,4 +168,72 @@ exports.delete = function (req, res) {
 		});
 	});
 };
+*/
+
+/*
+	Connection.db.collection('venta').find({})
+		.then(ventas => res.json({ ventas: ventas }))
+		.catch(err => res.json({ error: err }));
+
+		console.log('todoItems: ' + res.json({ ventas: ventas }));
+*/
+/*	Venta.findOne({}, function(err, result) {
+		if (err) throw err;
+		console.log(JSON.stringify(result));
+	});
+
+	Venta.find()
+		.sort([['fecha', 'ascending']])
+		.exec(function (err, list_ventas) {
+		if (err) { 
+			res.render('error', { 
+				error : err
+			});
+		}
+		//Successful, so render
+		var rows = JSON.stringify(list_ventas); 
+		res.render('ventaLista', { 
+			today : currentDate, 
+			titulo : 'Ventas Activas', 
+			ventas_list : rows 
+		});
+		console.log('todoItems: ' + rows);
+
+	});
+*/
+	/*
+	var todoItems = [
+  {
+    _id: 5d4c73557043921f34f7f30c,
+    folio: 1,
+    cliente: 1,
+    bonificacion: 0,
+    enganche: 0,
+    total: 5764.88,
+    tasa: 2.8,
+    plazo: 12,
+    fecha_venta: 2019-08-09T07:00:00.000Z,
+    estatus: 0,
+    vendedor: 'oprado'
+  }
+]
+	var todoItems = [
+			{ folio: 1 , cliente: 1, bonificacion: 0, enganche: 300, total: 5764.88, tasa: 2.8, plazo: 12, estatus: 0, vendedor : 'oprado'},
+			{ folio: 2 , cliente: 1, bonificacion: 0, enganche: 300, total: 5864.88, tasa: 2.8, plazo: 12, estatus: 0, vendedor : 'oprado'},
+			{ folio: 3 , cliente: 1, bonificacion: 0, enganche: 300, total: 5964.88, tasa: 2.8, plazo: 12, estatus: 0, vendedor : 'oprado'},
+			{ folio: 4 , cliente: 1, bonificacion: 0, enganche: 300, total: 5784.88, tasa: 2.8, plazo: 12, estatus: 0, vendedor : 'oprado'}
+	];*/
+	///let ventaDocs = todoItems;
+	//let ventaDocs = new Venta();
+	/*
+	Venta.find({}, function (err, lista_ventas) {
+		if (err)
+			{return next(err);}
+
+		res.render('venta', {
+			today : currentDate,
+			ventas : lista_ventas
+		});
+		
+	});
 */
