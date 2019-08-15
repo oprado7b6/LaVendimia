@@ -32,7 +32,7 @@ router.post('/articulo/:id/update', articulo_controller.articulo_update_post);
 router.get('/articulo/:id', articulo_controller.articulo_detail);
 
 // GET request for list of all Book items.
-router.get('/articulo', articulo_controller.articulo_list);
+router.get('/articulos', articulo_controller.articulo_list);
 
 /// CLIENTE ROUTES ///
 
@@ -118,6 +118,6 @@ router.get('/ventaArticulos', venta_articulo_controller.venta_articulo_list);
 /// CONFIGURACION ROUTES ///
 
 // GET request for one BookInstance.
-router.get('/configuracion/:id', configuracion_controller.configuracion_detail);
+router.get('/configuracion', configuracion_controller.configuracion_detail);
 
 module.exports = router;
