@@ -25,13 +25,14 @@ var schemas = {
 	},
 	configuracion: {
 		_id: null,
-		plazo: null,
-		periodo: null
+		plazo_max: null,
+		periodo: null,
+		enganche: null
 	},
 	plazo: {
 		_id: null,
 		plazo: null,
-		periodo: null,
+		periodo: null
 	},
 	usuario: {
 		_id: null,
