@@ -1,0 +1,106 @@
+
+table {
+	border: 2px solid #555;
+	border-collapse: collapse;
+	font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif;
+}
+
+thead > tr > th  {
+	background-color: ##8033cc;
+	vertical-align: middle;
+	border-color: transparent;
+	border-top: 2px solid #999;
+}
+tfoot > tr > th  {
+	background-color: ##8033cc;
+	vertical-align: middle;
+	border-color: transparent;
+	border-bottom: 2px solid #999;
+}
+tbody > tr > td {
+	vertical-align: middle;
+	border-color: transparent;
+}
+th, td {
+	color: #3333cc;
+	border: 1px solid #bbb;
+	padding: 2px 8px 0;
+	text-align: left;
+}
+
+h1 {
+	color: #3e8e41;
+	text-align: left;
+}
+h2 {
+	color: #3e8e41;
+	text-align: right;
+}
+h3 {
+	color: #3e8e41;
+	text-align: center;
+}
+h5 {
+	color: #66b3ff;
+	text-align: left;
+}
+
+label {
+	color: #3359cc;
+	text-align: left;
+}
+.navbar-brand {
+	color: white !important;
+}
+.dropdown-item a:hover {
+	background-color: #f1f1f1;
+	color: white;
+}
+.modal-dialog {
+	width: 800px;
+	height: 600px !important;
+}
+.modal-header, h2, .close {
+	background-color: #3359cc;
+	color: white !important;
+	text-align: center;
+	font-size: 30px;
+}
+.modal-footer {
+	background-color: #f9f9f9;
+}
+.label-text {
+	vertical-align: middle;
+}
+
+.date {
+	color: white;
+	background: none;
+}
+.nuevaventa {
+	align: right;
+}
+.nuevoarticulo {
+	align: right;
+}
+.folio {
+	border: 0px solid;
+	color: #3e8e41;
+	background-color: white;
+	text-align: right;
+	width: 100px;
+}
+.busca {
+	color: #66b3ff;
+	background-color: white;
+}
+.transparent-input {
+	background-color: transparent;
+	color: #3e8e41 !important;
+	border: none;
+}
+.nodisponible {
+	color: red;
+	text-decoration: bold;
+	text-align: center;
+}
