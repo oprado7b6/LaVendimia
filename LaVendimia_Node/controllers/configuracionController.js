@@ -1,5 +1,11 @@
 // configuracionController.js
-var mongoose = require('mongoose');
+var MongoClient = require('mongodb').MongoClient;
+const dburl = process.env.DBURL;
+const dbName = process.env.DBNAME;
+const dbPort = process.env.DBPORT;
+const { Connection } = require('../lib/Connection.js')
+
+const mongoose = require('mongoose');
 const moment = require('moment');
 const currentDate = moment(Date.now()).format('MMMM Do YYYY HH:mm:ss');
 
@@ -8,7 +14,7 @@ const Configuracion = require('../models/configuracion');
 
 // Display detail page for a specific venta.
 exports.configuracion_detail = function(req, res) {
-	/*
+	
 	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dbName);
@@ -16,15 +22,10 @@ exports.configuracion_detail = function(req, res) {
 			if (err) throw err;
 			res.render('configuracion', { 
 				today : currentDate, 
-				titulo : 'Configuracion', 
-				confituracion : result 
+				titulo : 'Configuracion General', 
+				configuracion : result 
 			});
 			db.close();
 		});
-	});
-	*/
-	res.render('notImplemented', {
-		today : currentDate,
-		modulo : 'Configuraci&oacute;n'
 	});
 };

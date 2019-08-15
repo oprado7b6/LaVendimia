@@ -19,7 +19,7 @@ exports.cliente_list = function(req, res) {
 			if (err) throw err;
 			res.render('clienteLista', { 
 				today : currentDate, 
-				titulo : 'Clinetes Registrado', 
+				titulo : 'Clientes Registrados', 
 				nuevo : 'Nuevo Cliente',
 				clientes_list : result 
 			});

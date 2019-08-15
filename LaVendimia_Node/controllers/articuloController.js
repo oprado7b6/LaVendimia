@@ -20,7 +20,7 @@ exports.articulo_list = function(req, res) {
 			if (err) throw err;
 			res.render('articuloLista', { 
 				today : currentDate, 
-				titulo : 'Articulos Registrado', 
+				titulo : 'Articulos Registrados', 
 				nuevo : 'Nuevo Articulo',
 				articulos_list : result 
 			});

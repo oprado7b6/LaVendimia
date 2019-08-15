@@ -3,9 +3,9 @@ var MongoClient = require('mongodb').MongoClient;
 const dburl = process.env.DBURL;
 const dbName = process.env.DBNAME;
 const dbPort = process.env.DBPORT;
+const { Connection } = require('../lib/Connection.js')
 const mongoose = require('mongoose');
 const moment = require('moment');
-const { Connection } = require('../lib/Connection.js')
 
 const currentDate = moment(Date.now()).format('MMMM Do YYYY HH:mm:ss');
 
@@ -13,12 +13,32 @@ const currentDate = moment(Date.now()).format('MMMM Do YYYY HH:mm:ss');
 //var eventsEmitter = new events.EventEmitter();
 
 // Import venta model
-var Venta = require('../models/venta');
-var VentaArticulo = require('../models/ventaArticulo');
-var Articulo = require('../models/articulo');
-var Cliente = require('../models/cliente');
+var VentaMod = require('../models/venta');
+var VentaArticuloMod = require('../models/ventaArticulo');
+var ArticuloMod = require('../models/articulo');
+var ClienteMod = require('../models/cliente');
 
+var Venta = mongoose.model('venta');
 //var async = require('async');
+
+/*
+const myDBO = exports.MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
+	if (err) throw err;
+	var dbo = db.db(dbName);
+		dbo.collection("venta").find({}).toArray(function(err, result) {
+			if (err) throw err;
+			//var doc = venta.cliente._id(result.cliente);
+			res.render('ventaLista', { 
+				today : currentDate, 
+				titulo : 'Ventas Activas', 
+				ventas_list : result 
+			});
+			//console.log(doc)
+			console.log(result);
+			//db.close();
+		});
+});
+*/
 
 exports.index = function(req, res) {
 	res.render('index', {
@@ -28,16 +48,70 @@ exports.index = function(req, res) {
 
 // Display list of all ventas.
 exports.venta_list = function(req, res, next) {
+	var rs_clientes;
+	var rs_articulos;
+	var rs_ventas;
+	var rs_articulos_venta;
+	var rs_configuracion;
+	var rs_abonos;
 	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dbName);
+
+		dbo.collection("configuracion").find({}).toArray(function(err, resultconfig) {
+			if (err) throw err;
+			rs_configuracion = resultconfig;
+			dbo.collection("plazo").find({plazo: { $lte: rs_configuracion[0].plazo_max} }).toArray(function(err, resultabono) {
+				if (err) throw err;
+				rs_abonos = resultabono;
+				//console.log(rs_abonos);
+			});
+		});
+
+		dbo.collection("cliente").find({}).toArray(function(err, resultclientes) {
+			if (err) throw err;
+			rs_clientes = resultclientes;
+			//console.log(rs_clientes);
+		});
+		dbo.collection("articulo").find({}).toArray(function(err, resultarticulos) {
+			if (err) throw err;
+			rs_articulos = resultarticulos;
+			//console.log(resultarticulos);
+		});
 		dbo.collection("venta").find({}).toArray(function(err, result) {
 			if (err) throw err;
+			rs_ventas = result;
+			rs_ventas.forEach((venta) => {
+				venta.fecha_venta = moment(venta.fecha_venta).format('YYYY/MM/DD');
+				rs_clientes.forEach((cliente) => {
+					if (cliente._id === venta.cliente){
+						venta.cliente = cliente;
+					}
+				});
+
+				dbo.collection("venta_articulo").find({ folio: venta.folio }).toArray(function(err, resultvart) {
+					if (err) throw err;
+					rs_articulos_venta = resultvart;
+					venta["articulos"] = JSON.stringify(rs_articulos_venta);
+					//console.log(venta);
+					//console.log(rs_ventas);
+				});
+			});
 			res.render('ventaLista', { 
 				today : currentDate, 
-				titulo : 'Ventas Activas', 
-				ventas_list : result 
+				titulo : 'Ventas Activas',
+				nuevoFolio : 2, 
+				plazo_max : rs_configuracion[0].plazo_max,
+				tasa : rs_configuracion[0].tasa,
+				porcentaje_enganche : rs_configuracion[0].enganche,
+				abonos : rs_abonos,
+				ventas : rs_ventas,
+				venta_articulos : rs_articulos_venta,
+				clientes : rs_clientes,
+				articulos : rs_articulos
 			});
+			//console.log(rs_ventas);
+			//console.log(resultvart);
 			db.close();
 		});
 	});
