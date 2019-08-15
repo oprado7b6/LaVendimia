@@ -1,0 +1,47 @@
+<!-- views/ventaLista.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ./partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ./partials/header %>
+</header>
+
+<main>
+    <div id="durl" class="jumbotron" style="margin-top: 150px;">		
+		<div class="container">
+			<div class="row">
+				<%=titulo%>
+			</div>
+
+			<div class="row">
+			<form action="/">
+				<div class="form-group">
+					<label for="tasa">Tasa Financiamiento:</label>
+					<input type="text" class="form-control" id="tasa" value="<%=configuracion[0].tasa%>" readonly>
+				</div>
+				<div class="form-group">
+					<label for="enganche">% de Enganche:</label>
+					<input type="text" class="form-control" id="enganche" value="<%=configuracion[0].enganche%>" readonly>
+				</div>
+				<div class="form-group">
+					<label for="plazo">Plazo M&aacute;ximo:</label>
+					<input type="text" class="form-control" id="plazo" value="<%=configuracion[0].plazo_max%>" readonly>
+				</div>
+				<button type="submit" class="btn btn-danger btn-default pull-rigth">Cancelar</button>
+				<button type="submit" class="btn btn-success btn-default pull-rigth">Guardar</button>
+			</form>
+			</div>
+		</div>
+    </div>
+</main>
+
+<footer>
+	<% include ./partials/footer %>
+</footer>
+
+</body>
+</html>

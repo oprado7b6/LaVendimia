@@ -13,6 +13,7 @@
 <main>
     <div id="durl" class="jumbotron" style="margin-top: 150px;">		
 		<div class="container">
+
 			<div id="ventas" class="ventas">
 				<div class="nuevaventa">
 					<button data-toggle="modal" data-target="#registroVentaModal" id="btnRegistroVenta" class="btn btn-primary">
@@ -21,8 +22,8 @@
 				</div>
 				<div class="ventasactivas">
 					<h5><%=titulo%></h5>
-					<table id="tblVentasActivas" class="table display" >
-					<thead class="thead-light">
+					<table id="tblVentasActivas" class="table table-hover">
+					<thead>
 					<tr>
 						<th>Folio Venta</th>
 						<th>Clave Cliente</th>
@@ -33,35 +34,210 @@
 					</tr>
 					</thead>
 					<tbody>
-					<%	if (ventas_list === null || ventas_list.length === 0 ){ %>
+					<%	if (ventas === null || ventas.length === 0 ){ %>
 					<tr>
 						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
 					</tr>
 					<%	} else {
-							for (var i = 0; i < ventas_list.length; i ++){
+							for (var i = 0; i < ventas.length; i ++){
+								var miCliente = ventas[i].cliente.nombre +' ' +ventas[i].cliente.primer_apellido+' '+ventas[i].cliente.segundo_apellido;
+								var myDate = ventas[i].fecha_venta;
 					%>
 					<tr>
-						<td><%= ventas_list[i].folio %></th>
-						<td><%= ventas_list[i].cliente %> </td>
-						<td><%= ventas_list[i].vendedor %></td>
-						<td><%= ventas_list[i].total %></td>
-						<td><%= ventas_list[i].fecha_venta %></td>
-						<td><%= ventas_list[i].estatus %></td>
+						<td><%= ventas[i].folio %></th>
+						<td><%= ventas[i].cliente._id %> </td>
+						<td><%= miCliente %></td>
+						<td>$<%= ventas[i].total %></td>
+						<td><%= myDate %></td>
+						<td><%= ventas[i].estatus %></td>
 					</tr>
 					<%		}
 						} %>
 					</tbody>
-					<tfoot class="thead-light">
-					<tr>
-						<th>Folio Venta</th>
-						<th>Clave Cliente</th>
-						<th>Nombre</th>
-						<th>Total</th>
-						<th>Fecha</th>
-						<th>Estatus</th>
-					</tr>
-					</tfoot>
 					</table>
+				</div>
+			</div>
+
+			<!------ MODAL REGISTRO DE VENTA -->
+			<div id="registroVentaModal" class="modal fade" role="dialog" aria-labelledby="registroVentaModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<!-- Modal header-->
+						<div class="modal-header">
+							<h2 class="modal-title" id="registroVentaModalLabel">Registro de Ventas</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Modal body-->
+        				<div class="modal-body">
+							<form id="registroVentas" class="form-inline">
+							<input type="hidden" id="id_articulo">
+							<input type="hidden" id="existencia">
+							<input type="hidden" id="id_cliente">
+							<input type="hidden" id="config_plazo" value="<%= plazo_max %>">
+							<input type="hidden" id="config_enganche" value="<%= porcentaje_enganche %>">
+							<input type="hidden" id="config_tasa" value="<%= tasa %>">
+
+								<div class="form-group">
+									<label>
+										<span for="folio" class="label-text folio">Folio Venta:</span>
+										<input id="folio" type="text" class="form-control transparent-input" value="<%=nuevoFolio%>" readonly>
+									</label>
+								</div>
+
+								<div class="form-group">
+									<label>
+										<span for="busca_cliente" class="label-text">Cliente:</span>
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Cliente" aria-label="Search" id="busca_cliente">
+										<span class="fas fa-search" aria-hidden="true"></span>
+										<input type="text" class="form-control transparent-input" placeholder="RFC" id="rfc" readonly>
+									</label>
+								</div>
+							
+								<div class="form-group">
+									<label>
+										<span for="busca_articulo" class="label-text">Art&iacute;culo:</span>
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Articulo" aria-label="Search" id="busca_articulo">
+										<span class="fas fa-search" aria-hidden="true"></span>
+										<span class="fas fa-plus-square"></span>
+									</label>
+								</div>
+								
+								<div class="clearfix"></div>
+
+								<div id="divRegistroVenta" class="form-group">
+									<table id="tblRegistroVenta" class="table table-hover">
+									<thead>
+									<tr>
+										<th>Descripci&oacute;n</th>
+										<th>Modelo</th>
+										<th>Cantidad</th>
+										<th>Precio</th>
+										<th>Importe</th>
+									</tr>
+									</thead>
+									<tbody id="ventasDataTable">
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									</tbody>
+									</table>
+								</div>
+								<div class="form-group">
+									<label>
+										<span for="enganche" class="label-text">Enganche:</span>
+										<input type="text" class="form-control transparent-input" placeholder="Enganche" id="enganche">
+									</label>
+								</div>
+								<div class="form-group">
+									<label>
+										<span for="bonificacion" class="label-text">Bonificaci&oacute;n de Enganche:</span>
+										<input type="text" class="form-control transparent-input" placeholder="Bonificaci&oacute;n de Enganche" id="bonificacion">
+									</label>
+								</div>
+								<div class="form-group pull-rigth">
+									<label>
+										<span for="total_venta" class="label-text">Total:</span>
+										<input type="text" class="form-control transparent-input" placeholder="Total" id="total_venta">
+									</label>
+								</div>
+								<div id="divAbonosMensuales" class="form-group">
+									<table id="tblAbonosMensuales" class="table table-hover">
+									<thead>
+									<tr>
+										<th colspan="3">ABONOS MENSUALES</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+
+										<td>3 ABONOS DE $,370.</td>
+										<td>TOTAL A PAGAR $ 3,370.00</td>
+										<td>SE AHORRA $784.84 </td>
+									</tr>
+									</tbody>
+									</table>
+								</div>
+							</form>
+
+								<!-- Catalogo de articulos -->
+								<div id="divArticulosVenta" class="form-group" style="display: none">
+									<table id="tblArticulosVenta" class="table table-hover">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Existencia</th>
+										<th>Descripci&oacute;n</th>
+										<th>Modelo</th>
+										<th>Color</th>
+										<th>Precio</th>
+									</tr>
+									</thead>
+									<tbody id="articulosDataTable">
+									<%	if (articulos === null || articulos.length === 0 ){ %>
+									<tr>
+										<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+									</tr>
+									<%	} else {
+											for (var i = 0; i < articulos.length; i ++){
+									%>
+									<tr>
+										<td><%= articulos[i]._id %></th>
+										<td><%= articulos[i].cantidad %></td>
+										<td><%= articulos[i].descripcion %> </td>
+										<td><%= articulos[i].modelo %></td>
+										<td><%= articulos[i].color %></td>
+										<td>$<%= articulos[i].precio %></td>
+									</tr>
+									<%		}
+										} %>
+									</tbody>
+									</table>
+								</div>
+
+								<!-- Catalogo de clientes -->
+								<div id="divClientesVenta" class="form-group" style="display: none">
+									<table id="tblClientesVenta" class="table table-hover">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nombre</th>
+										<th>RFC</th>
+										<th>Tel&eacute;fono</th>
+									</tr>
+									</thead>
+									<tbody id="clientesDataTable">
+									<%	if (clientes === null || clientes.length === 0 ){ %>
+									<tr>
+										<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+									</tr>
+									<%	} else {
+											for (var i = 0; i < clientes.length; i ++){
+												var nombre = clientes[i].nombre +' ' +clientes[i].primer_apellido+' '+clientes[i].segundo_apellido;
+									%>
+									<tr>
+										<td><%= clientes[i]._id %></th>
+										<td><%= nombre %> </td>
+										<td><%= clientes[i].rfc %></td>
+										<td><%= clientes[i].telefono %></td>
+									</tr>
+									<%		}
+										} %>
+									</tbody>
+									</table>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
