@@ -6,12 +6,7 @@ const plazoSchema = new mongoose.Schema({
 	periodo: {
 		type: String,
 		trim: true
-	},
-	tasa: {
-		type: Number,
-		default: 0.0
 	}
 });
 
 module.exports = mongoose.model('plazo', plazoSchema);
-

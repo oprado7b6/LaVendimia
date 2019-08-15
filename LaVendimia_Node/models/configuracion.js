@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const configuracionSchema = new mongoose.Schema({
-	id: Number,
-	plazo: Number,
+	_id: Number,
+	plazo_max: Number,
 	tasa: Number,
 	enganche: Number
 });

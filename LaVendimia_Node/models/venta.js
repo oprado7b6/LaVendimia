@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 
+var cteSchema = new mongoose.Schema({ 
+		_id: 'number',
+		nombre: 'string',
+		primer_apellido: 'string',
+		segundo_apellido: 'string' 
+	});
 const ventaSchema = new mongoose.Schema({
 	_id: Object,
 	folio: Number,
-	cliente: Number,
+	cliente: cteSchema,
 	bonificacion:  Number,
 	enganche: {
 		type: Number,
@@ -31,6 +37,7 @@ const ventaSchema = new mongoose.Schema({
 });
 //const Articulo = mongoose.model('articulo', articuloSchema);
 const Venta = mongoose.model('venta', ventaSchema);
+//var venta = new Venta;
 
 module.exports = Venta;
 
