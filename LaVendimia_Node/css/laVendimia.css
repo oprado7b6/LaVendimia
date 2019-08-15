@@ -1,70 +1,105 @@
-.dropbtn {
-	background-color: #000000;
-	color: white;
-	padding: 16px;
-	font-size: 16px;
-	border: none;
-	cursor: pointer;
+
+table {
+	border: 2px solid #555;
+	border-collapse: collapse;
+	font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif;
 }
 
-.dropdown {
-	position: relative;
-	display: inline-block;
+thead > tr > th  {
+	background-color: ##8033cc;
+	vertical-align: middle;
+	border-color: transparent;
+	border-top: 2px solid #999;
+}
+tfoot > tr > th  {
+	background-color: ##8033cc;
+	vertical-align: middle;
+	border-color: transparent;
+	border-bottom: 2px solid #999;
+}
+tbody > tr > td {
+	vertical-align: middle;
+	border-color: transparent;
+}
+th, td {
+	color: #3333cc;
+	border: 1px solid #bbb;
+	padding: 2px 8px 0;
+	text-align: left;
 }
 
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
+h1 {
+	color: #3e8e41;
+	text-align: left;
 }
-
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: #f1f1f1
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
-.dropdown:hover .dropbtn {
-	background-color: #151515;
-}
-.thead-light{
-	text-color: #6699ff;
-}
-h2{
+h2 {
 	color: #3e8e41;
 	text-align: right;
 }
-h5{
+h3 {
+	color: #3e8e41;
+	text-align: center;
+}
+h5 {
 	color: #66b3ff;
 	text-align: left;
 }
-.nuevaventa{
+
+label {
+	color: #3359cc;
+	text-align: left;
+}
+.navbar-brand {
+	color: white !important;
+}
+.dropdown-item a:hover {
+	background-color: #f1f1f1;
+	color: white;
+}
+.modal-dialog {
+	width: 800px;
+	height: 600px !important;
+}
+.modal-header, h2, .close {
+	background-color: #3359cc;
+	color: white !important;
+	text-align: center;
+	font-size: 30px;
+}
+.modal-footer {
+	background-color: #f9f9f9;
+}
+.label-text {
+	vertical-align: middle;
+}
+
+.date {
+	color: white;
+	background: none;
+}
+.nuevaventa {
 	align: right;
 }
-.folio{
+.nuevoarticulo {
+	align: right;
+}
+.folio {
 	border: 0px solid;
 	color: #3e8e41;
 	background-color: white;
 	text-align: right;
 	width: 100px;
 }
-.busca{
+.busca {
 	color: #66b3ff;
 	background-color: white;
 }
-.nodisponible{
+.transparent-input {
+	background-color: transparent;
+	color: #3e8e41 !important;
+	border: none;
+}
+.nodisponible {
 	color: red;
 	text-decoration: bold;
 	text-align: center;
