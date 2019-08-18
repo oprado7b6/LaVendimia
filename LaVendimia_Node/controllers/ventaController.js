@@ -48,19 +48,27 @@ exports.index = function(req, res) {
 
 // Display list of all ventas.
 exports.venta_list = function(req, res, next) {
-	var rs_clientes;
-	var rs_articulos;
-	var rs_ventas;
-	var rs_articulos_venta;
-	var rs_configuracion;
-	var rs_abonos;
+	let rs_clientes;
+	let rs_articulos;
+	let rs_ventas;
+	let rs_articulos_venta;
+	let rs_configuracion;
+	let rs_abonos;
+
 	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dbName);
+		var maxvalue = 0;
+		dbo.collection("venta").find({}).sort({folio: -1}).toArray(function(err, resultmax) {
+			if (err) throw err;
+			maxvalue = resultmax[0].folio;
+			//console.log("Venta: "+(maxvalue+1));
+		});
 
 		dbo.collection("configuracion").find({}).toArray(function(err, resultconfig) {
 			if (err) throw err;
 			rs_configuracion = resultconfig;
+			//console.log(rs_configuracion);
 			dbo.collection("plazo").find({plazo: { $lte: rs_configuracion[0].plazo_max} }).toArray(function(err, resultabono) {
 				if (err) throw err;
 				rs_abonos = resultabono;
@@ -78,11 +86,11 @@ exports.venta_list = function(req, res, next) {
 			rs_articulos = resultarticulos;
 			//console.log(resultarticulos);
 		});
-		dbo.collection("venta").find({}).toArray(function(err, result) {
+		dbo.collection("venta").find({}).toArray(function(err, resultventa) {
 			if (err) throw err;
-			rs_ventas = result;
+			rs_ventas = resultventa;
 			rs_ventas.forEach((venta) => {
-				venta.fecha_venta = moment(venta.fecha_venta).format('YYYY/MM/DD');
+				venta.fecha_venta = moment(venta.fecha_venta).format('YYYY/MM/DD HH:MM:ss');
 				rs_clientes.forEach((cliente) => {
 					if (cliente._id === venta.cliente){
 						venta.cliente = cliente;
@@ -94,24 +102,19 @@ exports.venta_list = function(req, res, next) {
 					rs_articulos_venta = resultvart;
 					venta["articulos"] = JSON.stringify(rs_articulos_venta);
 					//console.log(venta);
-					//console.log(rs_ventas);
 				});
 			});
+			//console.log(rs_ventas);
 			res.render('ventaLista', { 
 				today : currentDate, 
 				titulo : 'Ventas Activas',
-				nuevoFolio : 2, 
-				plazo_max : rs_configuracion[0].plazo_max,
-				tasa : rs_configuracion[0].tasa,
-				porcentaje_enganche : rs_configuracion[0].enganche,
-				abonos : rs_abonos,
 				ventas : rs_ventas,
-				venta_articulos : rs_articulos_venta,
+				plazos : rs_abonos,
 				clientes : rs_clientes,
-				articulos : rs_articulos
+				articulos : rs_articulos,
+				configuracion : rs_configuracion,
+				nuevoFolio : maxvalue+1,
 			});
-			//console.log(rs_ventas);
-			//console.log(resultvart);
 			db.close();
 		});
 	});
@@ -129,6 +132,30 @@ exports.venta_create_get = function(req, res) {
 
 // Handle venta create on POST.
 exports.venta_create_post = function(req, res) {
+	
+	var maxvalue = 0;
+	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dbName);
+		var newVenta = '{"folio": "1","cliente": "1", "bonificacion": "0","enganche": "0","total": "12474.67","tasa": "2.8","plazo": "12","fecha_venta": "2019/08/09","estatus": "0","vendedor": "oprado"}';
+		var newVentaArticulos = '[{"_id":"5d4c7d667043921f34f7f30d","folio":1,"articulo":1,"cantidad":1,"precio":5764.88,"importe":5764.88,"promocion":0,"estatus":0},{"_id":"5d53b1ac8579773e54849600","folio":1,"articulo":5,"cantidad":1,"precio":6709.79,"importe":6709.79,"promocion":0,"estatus":0}]';
+		dbo.collection("venta").find({}).sort({folio: -1}).toArray(function(err, resultmax) {
+			if (err) throw err;
+			maxvalue = resultmax[0].folio;
+			console.log("Venta: "+(maxvalue+1));
+			db.collection("venta").insertOne(newVenta, function(err, res) {
+				if (err) throw err;
+				console.log("Document inserted");
+				db.collection("venta_articulo").insertMany(newVentaArticulos, function(err, res) {
+					if (err) throw err;
+					console.log(res.insertedCount+"Document inserted");
+					// close the connection to db when you are done with it
+				});
+				// close the connection to db when you are done with it
+				db.close();
+			});
+		});
+	});
 	res.send('NOT IMPLEMENTED: Venta create POST');
 };
 

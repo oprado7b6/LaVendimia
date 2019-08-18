@@ -16,12 +16,20 @@ exports.articulo_list = function(req, res) {
 	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dbName);
+		var maxvalue = 0;
+		dbo.collection("articulo").find({}).sort({_id: -1}).toArray(function(err, resultmax) {
+			if (err) throw err;
+			maxvalue = resultmax[0]._id;
+			console.log(maxvalue+1);
+		});
+
 		dbo.collection("articulo").find({}).toArray(function(err, result) {
 			if (err) throw err;
 			res.render('articuloLista', { 
 				today : currentDate, 
 				titulo : 'Articulos Registrados', 
 				nuevo : 'Nuevo Articulo',
+				nuevoArticulo : maxvalue+1,
 				articulos_list : result 
 			});
 			db.close();
