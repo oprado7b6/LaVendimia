@@ -1,10 +1,9 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const app = express();
+//const dburl = process.env.DBURL;
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
-const db = process.env.DATABASE;
-const app = express();
 
 // define routes
 var indexRouter = require('./routes/index');
@@ -14,20 +13,8 @@ var models = require('./models/index');
 
 var events = require('events');
 var util = require('util');
-var eventsEmitter = new events.EventEmitter();
 
-//// Database connection to mongoDB 
-mongoose.connect(db, { useNewUrlParser: true});
-mongoose.Promise = global.Promise;
-mongoose.connection.on('connected', () => {
-		console.log('Mongoose connection open on ${process.env.DATABASE} '+ db );
-	})
-	.on('error', (err) => {
-		console.log('Unable Connection error: ${err.message}', err);
-	});
-/// End database connection
-
-//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // configure app
@@ -40,6 +27,10 @@ app.set('view engine', 'ejs');
 // use middleware 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname,'bower_components')));
 app.use(express.static('public'));
