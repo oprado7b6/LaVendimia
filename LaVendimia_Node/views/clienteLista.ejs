@@ -13,6 +13,7 @@
 <main>
     <div id="durl" class="jumbotron" style="margin-top: 150px;">		
 		<div class="container">
+			<!-- LISTA DE CLIENTES REGISTRADOS -->
 			<div id="clientes" class="clientes">
 				<div class="nuevocliente">
 					<button data-toggle="modal" data-target="#registroClienteModal" id="btnRegistroCliente" class="btn btn-primary">
@@ -21,7 +22,7 @@
 				</div>
 				<div class="clientesRegistrados">
 					<h5><%=titulo%></h5>
-					<table id="tblClientes" class="table table-hover">
+					<table id="tblClientesRegistrados" class="table table-hover">
 					<thead>
 					<tr>
 						<th>Clave Cliente</th>
@@ -35,7 +36,7 @@
 					<tbody>
 					<%	if (clientes_list === null || clientes_list.length === 0 ){ %>
 					<tr>
-						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></td>
 					</tr>
 					<%	} else {
 							for (var i = 0; i < clientes_list.length; i ++){
@@ -58,8 +59,86 @@
 					</table>
 				</div>
 			</div>
+			<!-- LISTA DE CLIENTES REGISTRADOS-->
+			<!------ MODAL REGISTRO DE CLIENTE -->
+			<div id="registroClienteModal" class="modal fade" role="dialog" aria-labelledby="registroClienteModalLabel" aria-hidden="true">
+				<div class="modal-dialog col-sm-12 col-lg-12">
+					<form id="frmRegistroClientes" class="form-inline" method="post" action="/catalog/cliente/create">
+					<input type="hidden" id="idCliente" name="cliente[id]" value="<%=nuevoCliente%>">
+					<!-- Modal content-->
+					<div class="modal-content col-sm-12 col-lg-12">
+						<!-- Modal header-->
+						<div class="modal-header">
+							<h2 class="modal-title" id="registroVentaModalLabel">Registro de Cliente</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Modal body-->
+        				<div class="modal-body">
+							<div class="form-group">
+								<label>
+									<span for="idCliente" class="label-text">Clave:</span>
+									<p class="form-control-static"><%=nuevoCliente%></p>
+								</label>
+							</div>
+							
+							<div class="form-group">
+								<label>
+									<span for="cliente_nombre" class="label-text">Nombre:</span>
+									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Nombre" id="cliente_nombre" name="cliente[nombre]">
+								</label>
+							</div>
+							
+							<div class="form-group">
+								<label>
+									<span for="primer_apellido" class="label-text">Primer Apellido:</span>
+									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Primer Apellido" id="primer_apellido" name="cliente[primer_apellido]">
+								</label>
+							</div>
+							
+							<div class="form-group">
+								<label>
+									<span for="segundo_apellido" class="label-text">Segundo Apellido:</span>
+									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Segundo Apellido" id="segundo_apellido" name="cliente[segundo_apellido]">
+								</label>
+							</div>
+							<div class="form-group">
+								<label>
+									<span for="rfc" class="label-text">RFC:</span>
+									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="RFC" id="rfc" name="cliente[rfc]" maxlength="10" onkeyup="this.value = this.value.toUpperCase();">
+								</label>
+							</div>
+
+							<div class="form-group">
+								<label>
+									<span for="telefono" class="label-text">Tel&eacute;fono:</span>
+									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Tel&eacute;fono" id="telefono"  name="cliente[telefono]" pattern="\d*" maxlength="10">
+								</label>
+							</div>
+							<div class="form-group pull-rigth">
+								<label>
+									<span for="correoelect" class="label-text">Correo Electr&oacute;nido:</span>
+									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Correo Elect&oacute;nico" id="correo_electronico" name="cliente[correo_electronico]">
+								</label>
+							</div>
+							<div class="form-group pull-rigth">
+								<label>
+									<span for="domicilio" class="label-text">Domicilio:</span>
+									<input type="textarea" class="form-control active-cyan-4 mb-4" placeholder="Domicilio" id="direccion" name="cliente[direccion]">
+								</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
+							<button type="submit" id="btnRegistraCliente" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!------ MODAL REGISTRO DE CLIENTE -->
 		</div>
-    </div>
+	</div>
 </main>
 
 <footer>

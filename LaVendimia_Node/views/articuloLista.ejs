@@ -13,6 +13,7 @@
 <main>
     <div id="durl" class="jumbotron" style="margin-top: 150px;">		
 		<div class="container">
+			<!-- LISTA DE ARTICULOS REGRISTRADOS -->
 			<div id="articulos" class="articulos">
 				<div class="nuevoarticulo">
 					<button data-toggle="modal" data-target="#registroArticuloModal" id="btnRegistroArticulo" class="btn btn-primary">
@@ -54,6 +55,88 @@
 					</table>
 				</div>
 			</div>
+			<!-- LISTA DE ARTICULOS REGRISTRADOS -->
+			<!------ MODAL REGISTRO DE ARTICULO -->
+			<div id="registroArticuloModal" class="modal fade" role="dialog" aria-labelledby="registroArticuloModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-full-width" rol="document">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<form id="registroArticulos" class="form-inline">
+						<input type="hidden" id="idArticulo" name="articulo[id]" value="<%=nuevoArticulo%>">
+						<!-- Modal header-->
+						<div class="modal-header">
+							<h2 class="modal-title" id="registroArticuloModalLabel">Registro de Articulo</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Modal header-->
+						<!-- Modal body-->
+        				<div class="modal-body">
+							<div class="form-group">
+								<label>
+									<span for="idArticulo" class="label-text folio col-sm-4 col-lg-4">Clave:</span>
+									<div class="col-sm-8 col-lg-8">
+										<p class="form-control-static"><%=nuevoArticulo%></p>
+									</div>
+								</label>
+							</div>
+
+							<div class="form-group">
+								<label>
+									<span for="descripcion" class="label-text col-sm-4 col-lg-4">Descripci&oacute;n:</span>
+									<div class="col-sm-8 col-lg-8">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Descripci&oacute;n" id="descripcion" name="articulo[descripcion]">
+									</div>
+								</label>
+							</div>
+							
+							<div class="form-group">
+								<label>
+									<span for="modelo" class="label-text col-sm-4 col-lg-4">M&oacute;delo:</span>
+									<div class="col-sm-8 col-lg-8">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="M&oacute;delo" id="modelo" name="articulo[modelo]">
+									</div>
+								</label>
+							</div>
+								
+							<div class="form-group">
+								<label>
+									<span for="color" class="label-text col-sm-4 col-lg-4">Color:</span>
+									<div class="col-sm-8 col-lg-8">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Color" id="color" name="articulo[color]">
+									</div>
+								</label>
+							</div>
+							<div class="form-group">
+								<label>
+									<span for="precio" class="label-text col-sm-4 col-lg-4">Precio:</span>
+									<div class="col-sm-8 col-lg-8">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Precio" id="precio" name="articulo[precio]">
+									</div>
+								</label>
+							</div>
+							<div class="form-group">
+								<label>
+									<span for="existencia" class="label-text col-sm-4 col-lg-4">Cantidad:</span>
+									<div class="col-sm-8 col-lg-8">
+										<input type="number" class="form-control active-cyan-4 mb-4" placeholder="Cantidad" id="existencia" name="articulo[existencia]">
+									</div>
+								</label>
+							</div>
+						</div>
+						<!-- Modal body-->
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+						</div>
+						<!-- Modal footer -->
+						</form>
+					</div>
+				</div>
+			</div>
+			<!------ MODAL REGISTRO DE ARTICULO -->
 		</div>
     </div>
 </main>

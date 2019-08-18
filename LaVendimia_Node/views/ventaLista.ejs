@@ -11,9 +11,9 @@
 </header>
 
 <main>
-    <div id="durl" class="jumbotron" style="margin-top: 150px;">		
+	<div id="durl" class="jumbotron" style="margin-top: 150px;">		
 		<div class="container">
-
+			<!-- INICIAL DE VENTA -->
 			<div id="ventas" class="ventas">
 				<div class="nuevaventa">
 					<button data-toggle="modal" data-target="#registroVentaModal" id="btnRegistroVenta" class="btn btn-primary">
@@ -36,7 +36,8 @@
 					<tbody>
 					<%	if (ventas === null || ventas.length === 0 ){ %>
 					<tr>
-						<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
+						<td><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></td>
+						<td></td><td></td><td></td><td></td><td></td>
 					</tr>
 					<%	} else {
 							for (var i = 0; i < ventas.length; i ++){
@@ -48,7 +49,7 @@
 						<td><%= ventas[i].cliente._id %> </td>
 						<td><%= miCliente %></td>
 						<td>$<%= ventas[i].total %></td>
-						<td><%= myDate %></td>
+						<td><%= ventas[i].fecha_venta %></td>
 						<td><%= ventas[i].estatus %></td>
 					</tr>
 					<%		}
@@ -57,191 +58,252 @@
 					</table>
 				</div>
 			</div>
-
+			<!------ INICIAL DE VENTA ENDS -->
 			<!------ MODAL REGISTRO DE VENTA -->
 			<div id="registroVentaModal" class="modal fade" role="dialog" aria-labelledby="registroVentaModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<!-- Modal content-->
-					<div class="modal-content">
-						<!-- Modal header-->
-						<div class="modal-header">
-							<h2 class="modal-title" id="registroVentaModalLabel">Registro de Ventas</h2>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<!-- Modal body-->
-        				<div class="modal-body">
-							<form id="registroVentas" class="form-inline">
-							<input type="hidden" id="id_articulo">
-							<input type="hidden" id="existencia">
-							<input type="hidden" id="id_cliente">
-							<input type="hidden" id="config_plazo" value="<%= plazo_max %>">
-							<input type="hidden" id="config_enganche" value="<%= porcentaje_enganche %>">
-							<input type="hidden" id="config_tasa" value="<%= tasa %>">
+				<!------ MODAL DIALOG -->
+				<div class="modal-dialog modal-full-height modal-lg col-sm-12 col-lg-12" rol="document">
+					<!-- MODAL CONTENT -->
+					<div class="modal-content col-sm-12 col-lg-12">
+						<!-- FORM -->
+						<form id="registroVentas" class="form-inline" action="/venta/create">
+						<input type="hidden" id="articulos" name="venta[articulos]">
+						<input type="hidden" id="existencia" >
+						<input type="hidden" id="id_cliente" name="venta[id_cliente]">
+						<input type="hidden" id="folio" name="venta[folio]">
+						<input type="hidden" id="config_plazo_max" name="config[plazo_max]" value="<%=configuracion[0].plazo_max%>">
+						<input type="hidden" id="config_enganche" name="config[enganche]" value="<%=configuracion[0].enganche%>">
+						<input type="hidden" id="config_tasa" name="config[tasa]" value="<%=configuracion[0].tasa%>">
+							<!-- Modal header-->
+							<div class="modal-header col-sm-12 col-lg-12">
+								<h2 class="modal-title" id="registroVentaModalLabel">Registro de Ventas</h2>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<!-- Modal body-->
+	        				<div class="modal-body col-sm-12 col-lg-12">
 
 								<div class="form-group">
 									<label>
 										<span for="folio" class="label-text folio">Folio Venta:</span>
-										<input id="folio" type="text" class="form-control transparent-input" value="<%=nuevoFolio%>" readonly>
+										<p class="form-control-static folio"> <%=nuevoFolio%> </p>
 									</label>
 								</div>
 
 								<div class="form-group">
 									<label>
-										<span for="busca_cliente" class="label-text">Cliente:</span>
-										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Cliente" aria-label="Search" id="busca_cliente">
-										<span class="fas fa-search" aria-hidden="true"></span>
-										<input type="text" class="form-control transparent-input" placeholder="RFC" id="rfc" readonly>
+										<span for="busca_cliente" class="label-text col-sm-3 col-lg-3">Cliente:</span>
+										<div class="col-sm-6 col-lg-6">
+											<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Cliente" aria-label="Search" id="busca_cliente">
+											<span class="fas fa-search" aria-hidden="true"></span>
+										</div>
+										<div class="col-sm-3 col-lg-3">
+											<input type="text" class="form-control transparent-input" placeholder="RFC" id="rfc" readonly>
+										</div>
 									</label>
 								</div>
 							
 								<div class="form-group">
 									<label>
-										<span for="busca_articulo" class="label-text">Art&iacute;culo:</span>
-										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Articulo" aria-label="Search" id="busca_articulo">
-										<span class="fas fa-search" aria-hidden="true"></span>
-										<span class="fas fa-plus-square"></span>
+										<span for="busca_articulo" class="label-text col-sm-3 col-lg-3">Art&iacute;culo:</span>
+										<div class="col-sm-7 col-lg-7">
+											<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Articulo" aria-label="Search" id="busca_articulo">
+											<span class="fas fa-search" aria-hidden="true"></span>
+										</div>
+										<div class="col-sm-2 col-lg-2">
+											<span class="fas fa-plus-square"></span>
+										</div>
 									</label>
 								</div>
 								
 								<div class="clearfix"></div>
 
-								<div id="divRegistroVenta" class="form-group">
-									<table id="tblRegistroVenta" class="table table-hover">
-									<thead>
-									<tr>
-										<th>Descripci&oacute;n</th>
-										<th>Modelo</th>
-										<th>Cantidad</th>
-										<th>Precio</th>
-										<th>Importe</th>
-									</tr>
-									</thead>
-									<tbody id="ventasDataTable">
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									</tbody>
-									</table>
+								<!-- CONTENEDOR DE TABLAS -->
+								<div id="divTablesContainer" class="form-group">
+									<!-- Registro de Ventas -->
+									<div id="divRegistroVenta" class="form-group  col-sm-12 col-lg-12">
+										<table id="tblRegistroVenta" class="table table-hover">
+										<thead>
+										<tr>
+											<th>Descripci&oacute;n</th>
+											<th>Modelo</th>
+											<th>Cantidad</th>
+											<th>Precio</th>
+											<th>Importe</th>
+										</tr>
+										</thead>
+										<tbody id="ventasDataTable">
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										</tbody>
+										</table>
+									</div>
+									<!-- Catalogo de articulos -->
+									<div id="divArticulosVenta" class="form-group col-sm-12 col-lg-12" style="display: none">
+										<button id="btnCierraArticulos" type="button" class="close" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+
+										<table id="tblArticulosVenta" class="table table-hover">
+										<thead>
+										<tr>
+											<th>Id</th>
+											<th>Existencia</th>
+											<th>Descripci&oacute;n</th>
+											<th>Modelo</th>
+											<th>Color</th>
+											<th>Precio</th>
+										</tr>
+										</thead>
+										<tbody id="articulosDataTable">
+										<%	if (articulos === undefined || articulos.length === 0 ){ %>
+										<tr>
+											<td><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></td>
+											<td></td><td></td><td></td><td></td><td></td>
+										</tr>
+										<%	} else {
+												for (var i = 0; i < articulos.length; i ++){
+										%>
+										<tr>
+											<td><%= articulos[i]._id %></th>
+											<td><%= articulos[i].cantidad %></td>
+											<td><%= articulos[i].descripcion %> </td>
+											<td><%= articulos[i].modelo %></td>
+											<td><%= articulos[i].color %></td>
+											<td>$<%= articulos[i].precio %></td>
+										</tr>
+										<%		}
+											} %>
+										</tbody>
+										</table>
+									</div>
+									<!-- Catalogo de articulos -->
+									<!-- Catalogo de clientes -->
+									<div id="divClientesVenta" class="form-group col-sm-12 col-lg-12" style="display: none">
+										<table id="tblClientesVenta" class="table table-hover">
+										<thead>
+										<tr>
+											<th>Id</th>
+											<th>Nombre</th>
+											<th>RFC</th>
+											<th>Tel&eacute;fono</th>
+										</tr>
+										</thead>
+										<tbody id="clientesDataTable">
+										<%	if (clientes === undefined || clientes.length === 0 ){ %>
+										<tr>
+											<td><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<%	} else {
+												for (var i = 0; i < clientes.length; i ++){
+													var nombre = clientes[i].nombre +' ' +clientes[i].primer_apellido+' '+clientes[i].segundo_apellido;
+										%>
+										<tr>
+											<td><%= clientes[i]._id %></th>
+											<td><%= nombre %> </td>
+											<td><%= clientes[i].rfc %></td>
+											<td><%= clientes[i].telefono %></td>
+										</tr>
+										<%		}
+											} %>
+										</tbody>
+										</table>
+									</div>
+									<!-- Catalogo de clientes -->
 								</div>
+								<!-- CONTENEDOR DE TABLAS ENDS -->
 								<div class="form-group">
 									<label>
-										<span for="enganche" class="label-text">Enganche:</span>
-										<input type="text" class="form-control transparent-input" placeholder="Enganche" id="enganche">
+										<span for="enganche" class="label-text col-sm-8 col-lg-8">Enganche:</span>
+										<div class="col-sm-4 col-lg-4">
+											<input type="text" class="form-control transparent-input" placeholder="Enganche" id="enganche"pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$">
+										</div>
 									</label>
 								</div>
 								<div class="form-group">
 									<label>
-										<span for="bonificacion" class="label-text">Bonificaci&oacute;n de Enganche:</span>
-										<input type="text" class="form-control transparent-input" placeholder="Bonificaci&oacute;n de Enganche" id="bonificacion">
+										<span for="bonificacion" class="label-text col-sm-8 col-lg-8">Bonificaci&oacute;n de Enganche:</span>
+										<div class="col-sm-4 col-lg-4">
+											<input type="text" class="form-control transparent-input" placeholder="Bonificaci&oacute;n de Enganche" id="bonificacion" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$">
+										</div>
 									</label>
 								</div>
 								<div class="form-group pull-rigth">
 									<label>
-										<span for="total_venta" class="label-text">Total:</span>
-										<input type="text" class="form-control transparent-input" placeholder="Total" id="total_venta">
+										<span for="total_venta" class="label-text col-sm-8 col-lg-8">Total:</span>
+										<div class="col-sm-4 col-lg-4">
+											<input type="text" class="form-control transparent-input" placeholder="Total" id="total_venta" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$">
+										</div>
 									</label>
 								</div>
-								<div id="divAbonosMensuales" class="form-group">
-									<table id="tblAbonosMensuales" class="table table-hover">
-									<thead>
-									<tr>
-										<th colspan="3">ABONOS MENSUALES</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-
-										<td>3 ABONOS DE $,370.</td>
-										<td>TOTAL A PAGAR $ 3,370.00</td>
-										<td>SE AHORRA $784.84 </td>
-									</tr>
-									</tbody>
-									</table>
+								<div id="divAbonosContainer" class="form-group">
+									<!-- Calculo de abono -->
+									<div id="divAbonosMensuales" class="form-group col-sm-12 col-lg-12" style="display: none">
+										<table id="tblAbonosMensuales" class="table table-hover">
+										<thead>
+										<tr>
+											<th>ABONOS</th>
+											<th>TOTAL A PAGAR</th>
+											<th>AHORRO</th>
+										</tr>
+										</thead>
+										<tbody>
+										<%	if (plazos === undefined || plazos.length === 0){ %>
+										<tr>
+											<td><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<%	} else {
+												for (var i = 0; i < plazos.length; i ++){
+													var abonos_plazo = plazos[i].plazo;
+										%>
+										<tr>
+											<td>
+												<%= abonos_plazo %> ABONOS DE 
+												<input id="<%= abonos_plazo %>_abonos_de" type="text" class="transparent-input" readonly>
+											</td>
+											<td>
+												TOTAL A PAGAR 
+												<input id="<%= abonos_plazo %>_total_pagar" type="text" class="transparent-input" readonly>
+											</td>
+											<td>
+												SE AHORRA 
+												<input id="<%= abonos_plazo %>_se_ahorra" type="text" class="transparent-input" readonly>
+											</td>
+										</tr>
+										<%		}
+											} %>
+										</tbody>
+										</table>
+									</div>
+									<!-- Calculo de abono ends-->
 								</div>
-							</form>
-
-								<!-- Catalogo de articulos -->
-								<div id="divArticulosVenta" class="form-group" style="display: none">
-									<table id="tblArticulosVenta" class="table table-hover">
-									<thead>
-									<tr>
-										<th>Id</th>
-										<th>Existencia</th>
-										<th>Descripci&oacute;n</th>
-										<th>Modelo</th>
-										<th>Color</th>
-										<th>Precio</th>
-									</tr>
-									</thead>
-									<tbody id="articulosDataTable">
-									<%	if (articulos === null || articulos.length === 0 ){ %>
-									<tr>
-										<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
-									</tr>
-									<%	} else {
-											for (var i = 0; i < articulos.length; i ++){
-									%>
-									<tr>
-										<td><%= articulos[i]._id %></th>
-										<td><%= articulos[i].cantidad %></td>
-										<td><%= articulos[i].descripcion %> </td>
-										<td><%= articulos[i].modelo %></td>
-										<td><%= articulos[i].color %></td>
-										<td>$<%= articulos[i].precio %></td>
-									</tr>
-									<%		}
-										} %>
-									</tbody>
-									</table>
-								</div>
-
-								<!-- Catalogo de clientes -->
-								<div id="divClientesVenta" class="form-group" style="display: none">
-									<table id="tblClientesVenta" class="table table-hover">
-									<thead>
-									<tr>
-										<th>Id</th>
-										<th>Nombre</th>
-										<th>RFC</th>
-										<th>Tel&eacute;fono</th>
-									</tr>
-									</thead>
-									<tbody id="clientesDataTable">
-									<%	if (clientes === null || clientes.length === 0 ){ %>
-									<tr>
-										<td colspan="6"><p style="text-decoration-style: bold; text-decoration-color: red">No hay datos disponibles</p></th>
-									</tr>
-									<%	} else {
-											for (var i = 0; i < clientes.length; i ++){
-												var nombre = clientes[i].nombre +' ' +clientes[i].primer_apellido+' '+clientes[i].segundo_apellido;
-									%>
-									<tr>
-										<td><%= clientes[i]._id %></th>
-										<td><%= nombre %> </td>
-										<td><%= clientes[i].rfc %></td>
-										<td><%= clientes[i].telefono %></td>
-									</tr>
-									<%		}
-										} %>
-									</tbody>
-									</table>
-								</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
-						</div>
+							</div>
+							<!-- MODAL FOOTER -->
+							<div class="modal-footer col-sm-12 col-lg-12">
+								<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+							</div>
+							<!-- MODAL FOOTER ENDS -->
+						</form>
 					</div>
+					<!-- MODAL CONTENT ENDS -->
 				</div>
+				<!-- MODAL DIALOG ENDS -->
 			</div>
+			<!-- MODAL REGISTRO DE VENTA -->
 		</div>
-    </div>
+	</div>
 </main>
 
 <footer>
