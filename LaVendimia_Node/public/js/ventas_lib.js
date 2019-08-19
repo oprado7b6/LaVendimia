@@ -225,5 +225,12 @@ $(document).ready(function() {
 			document.getElementById("divRegistroVenta").style.display = "block";
 		}
 	});
-
+	/*
+	function validateForm() {
+		var rfc = document.forms["registroVentas"]["rfc"].value;
+		if (rfc == "") {
+			alert("Name must be filled out");
+			return false;
+		}
+	}*/
 });
