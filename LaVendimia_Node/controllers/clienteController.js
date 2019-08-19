@@ -38,13 +38,19 @@ exports.cliente_list = function(req, res) {
 
 // Display detail page for a specific cliente.
 exports.cliente_detail = function(req, res) {
-	res.send('NOT IMPLEMENTED: Cliente detail: ' + req.params.id);
+	res.render('notImplemented', {
+		today : currentDate,
+		modulo : 'Detalle de Cliente'
+	});
 };
 
 // Display cliente create form on GET.
 exports.cliente_create_get = function(req, res) {
 	console.log("cliente_create_get");
-	res.send('NOT IMPLEMENTED: Cliente create GET');
+	res.render('notImplemented', {
+		today : currentDate,
+		modulo : 'Crea Cliente'
+	});
 };
 
 // Handle cliente create on POST.
@@ -61,16 +67,7 @@ exports.cliente_create_post = function(req, res) {
 	var rfc = postBody.cliente.rfc;
 	var domicilio = postBody.cliente.direccion;
 	let maxvalue = parseInt(id, 10);
-	/*
-	console.log(maxvalue);
-	console.log(name);
-	console.log(email);
-	console.log(primer_apellido);
-	console.log(segundo_apellido);
-	console.log(rfc);
-	console.log(telefono);
-	console.log(domicilio);
-	*/
+
 	MongoClient.connect(dburl+":"+dbPort+"/", { useNewUrlParser: true}, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dbName);
@@ -78,9 +75,7 @@ exports.cliente_create_post = function(req, res) {
 		dbo.collection("cliente").find({}).sort({_id: -1}).toArray(function(err, resultmax) {
 			if (err) throw err;
 			lastid = resultmax[0]._id;
-		//	console.log(lastid);
 			maxvalue = parseInt(lastid+1, 10);
-		//	console.log(maxvalue);
 		});
 		var data = { 
 			"_id": maxvalue,
@@ -100,25 +95,36 @@ exports.cliente_create_post = function(req, res) {
 		});
 	});
 	return res.redirect('/catalog/clientes');
-//	res.send('NOT IMPLEMENTED: Cliente create POST');
 };
 
 // Display cliente delete form on GET.
 exports.cliente_delete_get = function(req, res) {
-	res.send('NOT IMPLEMENTED: Cliente delete GET');
+	res.render('notImplemented', {
+		today : currentDate,
+		modulo : 'Borra Cliente'
+	});
 };
 
 // Handle cliente delete on POST.
 exports.cliente_delete_post = function(req, res) {
-	res.send('NOT IMPLEMENTED: Cliente delete POST');
+	res.render('notImplemented', {
+		today : currentDate,
+		modulo : 'Borra Cliente'
+	});
 };
 
 // Display cliente update form on GET.
 exports.cliente_update_get = function(req, res) {
-	res.send('NOT IMPLEMENTED: Cliente update GET');
+	res.render('notImplemented', {
+		today : currentDate,
+		modulo : 'Actualiza Cliente'
+	});
 };
 
 // Handle cliente update on POST.
 exports.cliente_update_post = function(req, res) {
-	res.send('NOT IMPLEMENTED: Cliente update POST');
+	res.render('notImplemented', {
+		today : currentDate,
+		modulo : 'Actualiza Cliente'
+	});
 };
