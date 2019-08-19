@@ -57,8 +57,7 @@ label {
 	color: white;
 }
 .modal-dialog {
-	width: 800px;
-	height: 600px !important;
+
 }
 .modal-header, h2, .close {
 	background-color: #3359cc;
