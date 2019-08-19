@@ -60,11 +60,11 @@
 			<div id="registroArticuloModal" class="modal fade" role="dialog" aria-labelledby="registroArticuloModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-full-width" rol="document">
 					<!-- Modal content-->
-					<div class="modal-content">
+					<div class="modal-content modal-full-width">
 						<form id="registroArticulos" class="form-inline">
 						<input type="hidden" id="idArticulo" name="articulo[id]" value="<%=nuevoArticulo%>">
 						<!-- Modal header-->
-						<div class="modal-header">
+						<div class="modal-header col-sm-12 col-lg-12">
 							<h2 class="modal-title" id="registroArticuloModalLabel">Registro de Articulo</h2>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -72,7 +72,7 @@
 						</div>
 						<!-- Modal header-->
 						<!-- Modal body-->
-        				<div class="modal-body">
+        				<div class="modal-body col-sm-12 col-lg-12">
 							<div class="form-group">
 								<label>
 									<span for="idArticulo" class="label-text folio col-sm-4 col-lg-4">Clave:</span>
@@ -127,7 +127,7 @@
 						</div>
 						<!-- Modal body-->
 						<!-- Modal footer -->
-						<div class="modal-footer">
+						<div class="modal-footer col-sm-12 col-lg-12">
 							<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
 							<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
 						</div>

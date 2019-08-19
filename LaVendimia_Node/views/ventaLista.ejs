@@ -15,13 +15,16 @@
 		<div class="container">
 			<!-- INICIAL DE VENTA -->
 			<div id="ventas" class="ventas">
-				<div class="nuevaventa">
-					<button data-toggle="modal" data-target="#registroVentaModal" id="btnRegistroVenta" class="btn btn-primary">
+				<div class="nuevaventa col-sm-12 col-md-12 col-lg-12">
+					<button data-toggle="modal" data-target="#registroVentaModal" id="btnNuevaVenta" class="btn btn-primary pull-rigth">
 						<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> Nueva Venta
 					</button>
 				</div>
-				<div class="ventasactivas">
-					<h5><%=titulo%></h5>
+				<div class="nuevaventa col-sm-12 col-md-12 col-lg-12">
+					<h4><%=titulo%></h4>
+				</div>
+				<div class="ventasactivas" col-sm-12 col-md-12 col-lg-12>
+					
 					<table id="tblVentasActivas" class="table table-hover">
 					<thead>
 					<tr>
@@ -62,15 +65,14 @@
 			<!------ MODAL REGISTRO DE VENTA -->
 			<div id="registroVentaModal" class="modal fade" role="dialog" aria-labelledby="registroVentaModalLabel" aria-hidden="true">
 				<!------ MODAL DIALOG -->
-				<div class="modal-dialog modal-full-height modal-lg col-sm-12 col-lg-12" rol="document">
+				<div class="modal-dialog modal-full-height" rol="document">
 					<!-- MODAL CONTENT -->
-					<div class="modal-content col-sm-12 col-lg-12">
+					<div class="modal-content modal-full-height">
 						<!-- FORM -->
-						<form id="registroVentas" class="form-inline" action="/venta/create">
+						<form id="registroVentas" class="form-inline" method="post" action="/catalog/venta/create">
 						<input type="hidden" id="articulos" name="venta[articulos]">
-						<input type="hidden" id="existencia" >
 						<input type="hidden" id="id_cliente" name="venta[id_cliente]">
-						<input type="hidden" id="folio" name="venta[folio]">
+						<input type="hidden" id="folio" name="venta[folio]" value="<%=nuevoFolio%>">
 						<input type="hidden" id="config_plazo_max" name="config[plazo_max]" value="<%=configuracion[0].plazo_max%>">
 						<input type="hidden" id="config_enganche" name="config[enganche]" value="<%=configuracion[0].enganche%>">
 						<input type="hidden" id="config_tasa" name="config[tasa]" value="<%=configuracion[0].tasa%>">
@@ -82,7 +84,7 @@
 								</button>
 							</div>
 							<!-- Modal body-->
-	        				<div class="modal-body col-sm-12 col-lg-12">
+							<div class="modal-body col-sm-12 col-lg-12">
 
 								<div class="form-group">
 									<label>
@@ -94,11 +96,11 @@
 								<div class="form-group">
 									<label>
 										<span for="busca_cliente" class="label-text col-sm-3 col-lg-3">Cliente:</span>
-										<div class="col-sm-6 col-lg-6">
+										<div class="col-sm-5 col-lg-5">
 											<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Cliente" aria-label="Search" id="busca_cliente">
 											<span class="fas fa-search" aria-hidden="true"></span>
 										</div>
-										<div class="col-sm-3 col-lg-3">
+										<div class="col-sm-4 col-lg-4">
 											<input type="text" class="form-control transparent-input" placeholder="RFC" id="rfc" readonly>
 										</div>
 									</label>
@@ -126,6 +128,7 @@
 										<table id="tblRegistroVenta" class="table table-hover">
 										<thead>
 										<tr>
+											<th>Id</th>
 											<th>Descripci&oacute;n</th>
 											<th>Modelo</th>
 											<th>Cantidad</th>
@@ -140,6 +143,7 @@
 											<td></td>
 											<td></td>
 											<td></td>
+											<td></td>
 										</tr>
 										</tbody>
 										</table>
@@ -149,7 +153,6 @@
 										<button id="btnCierraArticulos" type="button" class="close" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
-
 										<table id="tblArticulosVenta" class="table table-hover">
 										<thead>
 										<tr>
@@ -169,9 +172,10 @@
 										</tr>
 										<%	} else {
 												for (var i = 0; i < articulos.length; i ++){
+													var id_articulo = articulos[i]._id;
 										%>
 										<tr>
-											<td><%= articulos[i]._id %></th>
+											<td><%= id_articulo %></th>
 											<td><%= articulos[i].cantidad %></td>
 											<td><%= articulos[i].descripcion %> </td>
 											<td><%= articulos[i].modelo %></td>
@@ -206,9 +210,10 @@
 										<%	} else {
 												for (var i = 0; i < clientes.length; i ++){
 													var nombre = clientes[i].nombre +' ' +clientes[i].primer_apellido+' '+clientes[i].segundo_apellido;
+													var id_cliente = clientes[i]._id;
 										%>
 										<tr>
-											<td><%= clientes[i]._id %></th>
+											<td><%= id_cliente %></th>
 											<td><%= nombre %> </td>
 											<td><%= clientes[i].rfc %></td>
 											<td><%= clientes[i].telefono %></td>
@@ -225,7 +230,7 @@
 									<label>
 										<span for="enganche" class="label-text col-sm-8 col-lg-8">Enganche:</span>
 										<div class="col-sm-4 col-lg-4">
-											<input type="text" class="form-control transparent-input" placeholder="Enganche" id="enganche"pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$">
+											<input type="text" class="form-control transparent-input" placeholder="Enganche" id="enganche" name="venta[enganche]">
 										</div>
 									</label>
 								</div>
@@ -233,7 +238,7 @@
 									<label>
 										<span for="bonificacion" class="label-text col-sm-8 col-lg-8">Bonificaci&oacute;n de Enganche:</span>
 										<div class="col-sm-4 col-lg-4">
-											<input type="text" class="form-control transparent-input" placeholder="Bonificaci&oacute;n de Enganche" id="bonificacion" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$">
+											<input type="text" class="form-control transparent-input" placeholder="Bonificaci&oacute;n de Enganche" id="bonificacion" name="venta[bonificacion]">
 										</div>
 									</label>
 								</div>
@@ -241,7 +246,7 @@
 									<label>
 										<span for="total_venta" class="label-text col-sm-8 col-lg-8">Total:</span>
 										<div class="col-sm-4 col-lg-4">
-											<input type="text" class="form-control transparent-input" placeholder="Total" id="total_venta" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$">
+											<input type="text" class="form-control transparent-input" placeholder="Total" id="total_venta" name="venta[total]">
 										</div>
 									</label>
 								</div>
@@ -289,12 +294,13 @@
 									<!-- Calculo de abono ends-->
 								</div>
 							</div>
-							<!-- MODAL FOOTER -->
+							<!-- Modal body ends-->
+							<!-- Modal footer -->
 							<div class="modal-footer col-sm-12 col-lg-12">
-								<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
-								<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+								<button type="button" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-success btn-primary pull-rigth" id="btnRegistraVenta">Siguiente</button>
 							</div>
-							<!-- MODAL FOOTER ENDS -->
+							<!-- Modal footer ends -->
 						</form>
 					</div>
 					<!-- MODAL CONTENT ENDS -->
@@ -302,6 +308,63 @@
 				<!-- MODAL DIALOG ENDS -->
 			</div>
 			<!-- MODAL REGISTRO DE VENTA -->
+
+			<!------ MODAL DETALLE DE VENTA -->
+			<div id="detalleVentaModal" class="modal fade" role="dialog" aria-labelledby="detalleVentaModalLabel" aria-hidden="true">
+				<!------ MODAL DIALOG -->
+				<div class="modal-dialog modal-full-height" rol="document">
+					<!-- MODAL CONTENT -->
+					<div class="modal-content modal-full-height">
+						<!-- Modal header-->
+						<div class="modal-header col-sm-12 col-lg-12">
+							<h2 class="modal-title" id="detalleVentaModalLabel">Detalle de Venta </h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Modal body-->
+						<div class="modal-body col-sm-12 col-lg-12">
+								<!-- CONTENEDOR DE TABLAS -->
+								<div id="divTablesContainer" class="form-group">
+									<!-- Registro de Ventas -->
+									<div id="divRegistroVenta" class="form-group  col-sm-12 col-lg-12">
+										<table id="tblRegistroVenta" class="table table-hover">
+										<thead>
+										<tr>
+											<th>Id</th>
+											<th>Descripci&oacute;n</th>
+											<th>Modelo</th>
+											<th>Cantidad</th>
+											<th>Precio</th>
+											<th>Importe</th>
+										</tr>
+										</thead>
+										<tbody id="ventasDataTable">
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- CONTENEDOR DE TABLAS ENS -->
+						</div>
+						<!-- Modal footer -->
+						<div class="modal-footer col-sm-12 col-lg-12">
+							<button type="button" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cerrar</button>
+						</div>
+						<!-- Modal footer ends -->
+					</div>
+					<!-- MODAL CONTENT ENDS -->
+				</div>
+				<!-- MODAL DIALOG ENDS -->
+			</div>
+			<!-- MODAL DETALLE DE VENTA -->
 		</div>
 	</div>
 </main>

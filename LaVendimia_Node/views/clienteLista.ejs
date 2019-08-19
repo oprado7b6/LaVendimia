@@ -62,76 +62,95 @@
 			<!-- LISTA DE CLIENTES REGISTRADOS-->
 			<!------ MODAL REGISTRO DE CLIENTE -->
 			<div id="registroClienteModal" class="modal fade" role="dialog" aria-labelledby="registroClienteModalLabel" aria-hidden="true">
-				<div class="modal-dialog col-sm-12 col-lg-12">
+				<div class="modal-dialog modal-full-width">
 					<form id="frmRegistroClientes" class="form-inline" method="post" action="/catalog/cliente/create">
 					<input type="hidden" id="idCliente" name="cliente[id]" value="<%=nuevoCliente%>">
 					<!-- Modal content-->
-					<div class="modal-content col-sm-12 col-lg-12">
+					<div class="modal-content modal-full-width">
 						<!-- Modal header-->
-						<div class="modal-header">
+						<div class="modal-header col-sm-12 col-lg-12">
 							<h2 class="modal-title" id="registroVentaModalLabel">Registro de Cliente</h2>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<!-- Modal body-->
-        				<div class="modal-body">
+        				<div class="modal-body col-sm-12 col-lg-12">
 							<div class="form-group">
 								<label>
-									<span for="idCliente" class="label-text">Clave:</span>
-									<p class="form-control-static"><%=nuevoCliente%></p>
+									<span for="idCliente" class="label-text col-sm-6 col-lg-6">Clave:</span>
+									<div class="col-sm-6 col-lg-6">
+										<p class="form-control-static"><%=nuevoCliente%></p>
+									</div>
 								</label>
 							</div>
 							
 							<div class="form-group">
 								<label>
-									<span for="cliente_nombre" class="label-text">Nombre:</span>
-									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Nombre" id="cliente_nombre" name="cliente[nombre]">
+									<span for="cliente_nombre" class="label-text col-sm-6 col-lg-6">Nombre:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Nombre" id="cliente_nombre" name="cliente[nombre]">
+									</div>
 								</label>
 							</div>
 							
 							<div class="form-group">
 								<label>
-									<span for="primer_apellido" class="label-text">Primer Apellido:</span>
-									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Primer Apellido" id="primer_apellido" name="cliente[primer_apellido]">
+									<span for="primer_apellido" class="label-text col-sm-6 col-lg-6">Primer Apellido:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Primer Apellido" id="primer_apellido" name="cliente[primer_apellido]">
+									</div>
 								</label>
 							</div>
 							
 							<div class="form-group">
 								<label>
-									<span for="segundo_apellido" class="label-text">Segundo Apellido:</span>
-									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Segundo Apellido" id="segundo_apellido" name="cliente[segundo_apellido]">
-								</label>
-							</div>
-							<div class="form-group">
-								<label>
-									<span for="rfc" class="label-text">RFC:</span>
-									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="RFC" id="rfc" name="cliente[rfc]" maxlength="10" onkeyup="this.value = this.value.toUpperCase();">
+									<span for="segundo_apellido" class="label-text col-sm-6 col-lg-6">Segundo Apellido:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Segundo Apellido" id="segundo_apellido" name="cliente[segundo_apellido]">
+									</div>
 								</label>
 							</div>
 
 							<div class="form-group">
 								<label>
-									<span for="telefono" class="label-text">Tel&eacute;fono:</span>
-									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Tel&eacute;fono" id="telefono"  name="cliente[telefono]" pattern="\d*" maxlength="10">
+									<span for="rfc" class="label-text col-sm-6 col-lg-6">RFC:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="RFC" id="rfc" name="cliente[rfc]" maxlength="10" onkeyup="this.value = this.value.toUpperCase();">
+									</div>
 								</label>
 							</div>
-							<div class="form-group pull-rigth">
+
+							<div class="form-group">
 								<label>
-									<span for="correoelect" class="label-text">Correo Electr&oacute;nido:</span>
-									<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Correo Elect&oacute;nico" id="correo_electronico" name="cliente[correo_electronico]">
+									<span for="telefono" class="label-text col-sm-6 col-lg-6">Tel&eacute;fono:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Tel&eacute;fono" id="telefono"  name="cliente[telefono]" pattern="\d*" maxlength="10">
+									</div>
 								</label>
 							</div>
+
 							<div class="form-group pull-rigth">
 								<label>
-									<span for="domicilio" class="label-text">Domicilio:</span>
-									<input type="textarea" class="form-control active-cyan-4 mb-4" placeholder="Domicilio" id="direccion" name="cliente[direccion]">
+									<span for="correoelect" class="label-text col-sm-6 col-lg-6">Correo Electr&oacute;nido:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Correo Elect&oacute;nico" id="correo_electronico" name="cliente[correo_electronico]">
+									</div>
+								</label>
+							</div>
+
+							<div class="form-group pull-rigth">
+								<label>
+									<span for="domicilio" class="label-text col-sm-6 col-lg-6">Domicilio:</span>
+									<div class="col-sm-6 col-lg-6">
+										<input type="textarea" class="form-control active-cyan-4 mb-4" placeholder="Domicilio" id="direccion" name="cliente[direccion]">
+									</div>
 								</label>
 							</div>
 						</div>
-						<div class="modal-footer">
+						<div class="modal-footer col-sm-12 col-lg-12">
 							<button type="button" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
-							<button type="submit" id="btnRegistraCliente" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+							<button type="submit" class="btn btn-success btn-primary pull-rigth" id="btnRegistraCliente">Siguiente</button>
 						</div>
 					</form>
 				</div>
