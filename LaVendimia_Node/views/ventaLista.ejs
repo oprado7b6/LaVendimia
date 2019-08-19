@@ -15,15 +15,15 @@
 		<div class="container">
 			<!-- INICIAL DE VENTA -->
 			<div id="ventas" class="ventas">
-				<div class="nuevaventa col-sm-12 col-md-12 col-lg-12">
+				<div class="col-sm-12 col-md-12 col-lg-12">
 					<button data-toggle="modal" data-target="#registroVentaModal" id="btnNuevaVenta" class="btn btn-primary pull-rigth">
 						<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> Nueva Venta
 					</button>
 				</div>
-				<div class="nuevaventa col-sm-12 col-md-12 col-lg-12">
-					<h4><%=titulo%></h4>
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<h2><%=titulo%></h2>
 				</div>
-				<div class="ventasactivas" col-sm-12 col-md-12 col-lg-12>
+				<div class="ventasactivas col-sm-12 col-md-12 col-lg-12">
 					
 					<table id="tblVentasActivas" class="table table-hover">
 					<thead>
@@ -46,6 +46,7 @@
 							for (var i = 0; i < ventas.length; i ++){
 								var miCliente = ventas[i].cliente.nombre +' ' +ventas[i].cliente.primer_apellido+' '+ventas[i].cliente.segundo_apellido;
 								var myDate = ventas[i].fecha_venta;
+								var myStatus = ventas[i].estatus === 0 ? "Activa" : "Pagada";
 					%>
 					<tr>
 						<td><%= ventas[i].folio %></th>
@@ -53,7 +54,7 @@
 						<td><%= miCliente %></td>
 						<td>$<%= ventas[i].total %></td>
 						<td><%= ventas[i].fecha_venta %></td>
-						<td><%= ventas[i].estatus %></td>
+						<td><%= myStatus %></td>
 					</tr>
 					<%		}
 						} %>
@@ -65,17 +66,18 @@
 			<!------ MODAL REGISTRO DE VENTA -->
 			<div id="registroVentaModal" class="modal fade" role="dialog" aria-labelledby="registroVentaModalLabel" aria-hidden="true">
 				<!------ MODAL DIALOG -->
-				<div class="modal-dialog modal-full-height" rol="document">
+				<div class="modal-dialog modal-lg modal-full-height" rol="document">
 					<!-- MODAL CONTENT -->
 					<div class="modal-content modal-full-height">
 						<!-- FORM -->
-						<form id="registroVentas" class="form-inline" method="post" action="/catalog/venta/create">
+						<form name="frmRegistroVentas" id="frmRegistroVentas" class="form-inline" method="post" action="/catalog/venta/create" onsubmit="return validateForm()">
 						<input type="hidden" id="articulos" name="venta[articulos]">
 						<input type="hidden" id="id_cliente" name="venta[id_cliente]">
 						<input type="hidden" id="folio" name="venta[folio]" value="<%=nuevoFolio%>">
 						<input type="hidden" id="config_plazo_max" name="config[plazo_max]" value="<%=configuracion[0].plazo_max%>">
 						<input type="hidden" id="config_enganche" name="config[enganche]" value="<%=configuracion[0].enganche%>">
 						<input type="hidden" id="config_tasa" name="config[tasa]" value="<%=configuracion[0].tasa%>">
+						<input type="hidden" id="config_tasa" name="plazos_abonos" value="<%=plazos%>">
 							<!-- Modal header-->
 							<div class="modal-header col-sm-12 col-lg-12">
 								<h2 class="modal-title" id="registroVentaModalLabel">Registro de Ventas</h2>
@@ -86,19 +88,19 @@
 							<!-- Modal body-->
 							<div class="modal-body col-sm-12 col-lg-12">
 
-								<div class="form-group">
+								<div class="form-group col-sm-12 col-lg-12">
 									<label>
 										<span for="folio" class="label-text folio">Folio Venta:</span>
 										<p class="form-control-static folio"> <%=nuevoFolio%> </p>
 									</label>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group col-sm-12 col-lg-12">
 									<label>
 										<span for="busca_cliente" class="label-text col-sm-3 col-lg-3">Cliente:</span>
 										<div class="col-sm-5 col-lg-5">
 											<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Cliente" aria-label="Search" id="busca_cliente">
-											<span class="fas fa-search" aria-hidden="true"></span>
+											<span class="glyphicon glyphicon-search"></span>
 										</div>
 										<div class="col-sm-4 col-lg-4">
 											<input type="text" class="form-control transparent-input" placeholder="RFC" id="rfc" readonly>
@@ -106,25 +108,25 @@
 									</label>
 								</div>
 							
-								<div class="form-group">
+								<div class="form-group col-sm-12 col-lg-12">
 									<label>
 										<span for="busca_articulo" class="label-text col-sm-3 col-lg-3">Art&iacute;culo:</span>
-										<div class="col-sm-7 col-lg-7">
+										<div class="col-sm-9 col-lg-9">
 											<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Articulo" aria-label="Search" id="busca_articulo">
-											<span class="fas fa-search" aria-hidden="true"></span>
-										</div>
-										<div class="col-sm-2 col-lg-2">
-											<span class="fas fa-plus-square"></span>
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 										</div>
 									</label>
 								</div>
-								
+								<div class="form-group col-sm-12 col-lg-12">
+									<div id="divMensajes" class="form-group col-sm-12 col-lg-12">
+									</div>
+								</div>
 								<div class="clearfix"></div>
 
 								<!-- CONTENEDOR DE TABLAS -->
-								<div id="divTablesContainer" class="form-group">
+								<div id="divTablesContainer" class="form-group col-sm-12 col-lg-12">
 									<!-- Registro de Ventas -->
-									<div id="divRegistroVenta" class="form-group  col-sm-12 col-lg-12">
+									<div id="divRegistroVenta" class="form-group col-sm-12 col-lg-12">
 										<table id="tblRegistroVenta" class="table table-hover">
 										<thead>
 										<tr>
@@ -176,7 +178,7 @@
 										%>
 										<tr>
 											<td><%= id_articulo %></th>
-											<td><%= articulos[i].cantidad %></td>
+											<td><%= articulos[i].existencia %></td>
 											<td><%= articulos[i].descripcion %> </td>
 											<td><%= articulos[i].modelo %></td>
 											<td><%= articulos[i].color %></td>
@@ -226,7 +228,7 @@
 									<!-- Catalogo de clientes -->
 								</div>
 								<!-- CONTENEDOR DE TABLAS ENDS -->
-								<div class="form-group">
+								<div class="form-group col-sm-12 col-lg-12">
 									<label>
 										<span for="enganche" class="label-text col-sm-8 col-lg-8">Enganche:</span>
 										<div class="col-sm-4 col-lg-4">
@@ -234,7 +236,7 @@
 										</div>
 									</label>
 								</div>
-								<div class="form-group">
+								<div class="form-group col-sm-12 col-lg-12">
 									<label>
 										<span for="bonificacion" class="label-text col-sm-8 col-lg-8">Bonificaci&oacute;n de Enganche:</span>
 										<div class="col-sm-4 col-lg-4">
@@ -242,7 +244,7 @@
 										</div>
 									</label>
 								</div>
-								<div class="form-group pull-rigth">
+								<div class="form-group pull-rigth col-sm-12 col-lg-12">
 									<label>
 										<span for="total_venta" class="label-text col-sm-8 col-lg-8">Total:</span>
 										<div class="col-sm-4 col-lg-4">
@@ -250,7 +252,7 @@
 										</div>
 									</label>
 								</div>
-								<div id="divAbonosContainer" class="form-group">
+								<div id="divAbonosContainer" class="form-group col-sm-12 col-lg-12">
 									<!-- Calculo de abono -->
 									<div id="divAbonosMensuales" class="form-group col-sm-12 col-lg-12" style="display: none">
 										<table id="tblAbonosMensuales" class="table table-hover">
@@ -270,7 +272,7 @@
 										</tr>
 										<%	} else {
 												for (var i = 0; i < plazos.length; i ++){
-													var abonos_plazo = plazos[i].plazo;
+													var abonos_plazo = plazos[i];
 										%>
 										<tr>
 											<td>

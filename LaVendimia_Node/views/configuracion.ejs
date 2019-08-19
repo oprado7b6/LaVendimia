@@ -13,27 +13,30 @@
 <main>
     <div id="durl" class="jumbotron" style="margin-top: 150px;">		
 		<div class="container">
-			<div class="row">
-				<%=titulo%>
-			</div>
-
-			<div class="row">
-			<form action="/">
-				<div class="form-group">
-					<label for="tasa">Tasa Financiamiento:</label>
-					<input type="text" class="form-control" id="tasa" value="<%=configuracion[0].tasa%>" readonly>
+			<div id="configuracion" class="configuracion">
+				<form id="frmConfiguracion" method="post" action="/catalog/configuracion/:id/update">
+				<input type="hidden" id="id" name="config[id]" value="<%=configuracion[0]._id%>">
+				<div class="col-sm-12 col-md-8 col-lg-6">
+					<h2><%=titulo%></h2>
 				</div>
-				<div class="form-group">
-					<label for="enganche">% de Enganche:</label>
-					<input type="text" class="form-control" id="enganche" value="<%=configuracion[0].enganche%>" readonly>
+				<div id="divConfiguracion" class="col-sm-12 col-md-8 col-lg-6">
+					<div class="form-group">
+						<label for="tasa">Tasa Financiamiento:</label>
+						<input type="text" class="form-control" id="tasa" name="config[tasa]" value="<%=configuracion[0].tasa%>">
+					</div>
+					<div class="form-group">
+						<label for="enganche">% de Enganche:</label>
+						<input type="text" class="form-control" id="enganche" name="config[enganche]" value="<%=configuracion[0].enganche%>" 
+					</div>
+					<div class="form-group">
+						<label for="plazo">Plazo M&aacute;ximo:</label>
+						<input type="text" class="form-control" id="plazo" name="config[plazo]" value="<%=configuracion[0].plazo_max%>">
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="plazo">Plazo M&aacute;ximo:</label>
-					<input type="text" class="form-control" id="plazo" value="<%=configuracion[0].plazo_max%>" readonly>
+				<div class="col-sm-12 col-md-8 col-lg-6">
+					<button type="submit" class="btn btn-success btn-default pull-rigth">Guardar</button>
 				</div>
-				<button type="submit" class="btn btn-danger btn-default pull-rigth">Cancelar</button>
-				<button type="submit" class="btn btn-success btn-default pull-rigth">Guardar</button>
-			</form>
+				</form>
 			</div>
 		</div>
     </div>

@@ -20,8 +20,10 @@
 						<i class="fas fa-plus-circle" style="font-size: 24px; color:green"></i> <%= nuevo %>
 					</button>
 				</div>
-				<div class="divArticulosRegistrados">
-					<h5><%=titulo%></h5>
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<h2><%=titulo%></h2>
+				</div>
+				<div id="divArticulosRegistrados" class="col-sm-12 col-md-12 col-lg-12">
 					<table id="tblArticulosRegistrados" class="table table-hover">
 					<thead>
 					<tr>
@@ -44,7 +46,7 @@
 					<tr>
 						<td><%= articulos_list[i]._id %></th>
 						<td><%= articulos_list[i].descripcion %> </td>
-						<td><%= articulos_list[i].cantidad %></td>
+						<td><%= articulos_list[i].existencia %></td>
 						<td><%= articulos_list[i].modelo %></td>
 						<td><%= articulos_list[i].color %></td>
 						<td><%= articulos_list[i].precio %></td>
@@ -61,7 +63,7 @@
 				<div class="modal-dialog modal-full-width" rol="document">
 					<!-- Modal content-->
 					<div class="modal-content modal-full-width">
-						<form id="registroArticulos" class="form-inline">
+						<form id="registroArticulos" class="form-inline" method="post" action="/catalog/articulo/create">
 						<input type="hidden" id="idArticulo" name="articulo[id]" value="<%=nuevoArticulo%>">
 						<!-- Modal header-->
 						<div class="modal-header col-sm-12 col-lg-12">
@@ -86,7 +88,7 @@
 								<label>
 									<span for="descripcion" class="label-text col-sm-4 col-lg-4">Descripci&oacute;n:</span>
 									<div class="col-sm-8 col-lg-8">
-										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Descripci&oacute;n" id="descripcion" name="articulo[descripcion]">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Descripci&oacute;n de Art&iacute;culo" id="descripcion" name="articulo[descripcion]">
 									</div>
 								</label>
 							</div>
@@ -95,7 +97,7 @@
 								<label>
 									<span for="modelo" class="label-text col-sm-4 col-lg-4">M&oacute;delo:</span>
 									<div class="col-sm-8 col-lg-8">
-										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="M&oacute;delo" id="modelo" name="articulo[modelo]">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="M&oacute;delo de Art&iacute;culo" id="modelo" name="articulo[modelo]">
 									</div>
 								</label>
 							</div>
@@ -104,7 +106,7 @@
 								<label>
 									<span for="color" class="label-text col-sm-4 col-lg-4">Color:</span>
 									<div class="col-sm-8 col-lg-8">
-										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Color" id="color" name="articulo[color]">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Color de Art&iacute;culo" id="color" name="articulo[color]">
 									</div>
 								</label>
 							</div>
@@ -112,15 +114,15 @@
 								<label>
 									<span for="precio" class="label-text col-sm-4 col-lg-4">Precio:</span>
 									<div class="col-sm-8 col-lg-8">
-										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Precio" id="precio" name="articulo[precio]">
+										<input type="text" class="form-control active-cyan-4 mb-4" placeholder="Precio de Art&iacute;culo" id="precio" name="articulo[precio]">
 									</div>
 								</label>
 							</div>
 							<div class="form-group">
 								<label>
-									<span for="existencia" class="label-text col-sm-4 col-lg-4">Cantidad:</span>
+									<span for="existencia" class="label-text col-sm-4 col-lg-4">Cantidad en Existencia:</span>
 									<div class="col-sm-8 col-lg-8">
-										<input type="number" class="form-control active-cyan-4 mb-4" placeholder="Cantidad" id="existencia" name="articulo[existencia]">
+										<input type="number" class="form-control active-cyan-4 mb-4" placeholder="Cantidad en Existencia" id="existencia" name="articulo[existencia]">
 									</div>
 								</label>
 							</div>
@@ -128,8 +130,8 @@
 						<!-- Modal body-->
 						<!-- Modal footer -->
 						<div class="modal-footer col-sm-12 col-lg-12">
-							<button type="submit" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-success btn-primary pull-rigth">Siguiente</button>
+							<button type="button" class="btn btn-danger btn-secundary pull-rigth" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-success btn-primary pull-rigth">Guardar</button>
 						</div>
 						<!-- Modal footer -->
 						</form>
